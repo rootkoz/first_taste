@@ -1,6 +1,6 @@
 public class SayHello {
 
-  public static void main(String[] args) {
-	System.out.println("\n -say \n --Hello! \n");
-	}
+    public static void main(String[] args) {
+        System.out.println("\n -say \n --Hello! \n");
+    }
 }
