@@ -9,7 +9,7 @@ package addressbook.tests;
 import addressbook.model.ContactData;
 import org.testng.annotations.Test;
 
-public class ContactCreationTest extends TestBase{
+public class ContactCreation extends TestBase{
 
     @Test
     public void testContactCreation() {

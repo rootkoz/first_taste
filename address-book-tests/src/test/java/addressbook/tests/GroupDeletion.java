@@ -1,8 +1,12 @@
 package addressbook.tests;
+/***
+ * by rootkoz
+ * >(((*>
+ */
 
 import org.testng.annotations.Test;
 
-public class GroupDeletionTest extends TestBase{
+public class GroupDeletion extends TestBase{
 
     @Test
     public void groupDeletionTest() {

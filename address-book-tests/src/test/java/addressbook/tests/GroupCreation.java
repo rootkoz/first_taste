@@ -1,10 +1,14 @@
 package addressbook.tests;
+/***
+ * by rootkoz
+ * >(((*>
+ */
 
 import addressbook.model.GroupData;
 import org.testng.annotations.Test;
 
 
-public class GroupCreationTest extends TestBase {
+public class GroupCreation extends TestBase {
 
     @Test
     public void testCreateGroup() {
