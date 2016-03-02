@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.appmanager.AppManager;
+import org.openqa.selenium.By;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 

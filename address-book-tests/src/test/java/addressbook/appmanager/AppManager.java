@@ -1,7 +1,6 @@
 package addressbook.appmanager;
 
 import addressbook.model.ContactData;
-import addressbook.model.GroupData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoAlertPresentException;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -16,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 
 public class AppManager {
     FirefoxDriver wd;
+
+    protected  GroupHelper groupHelper;
 
     public static boolean isAlertPresent(FirefoxDriver wd) {
         try {
@@ -33,33 +34,6 @@ public class AppManager {
         wd.findElement(By.name("pass")).clear();
         wd.findElement(By.name("pass")).sendKeys(password);
         wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-    }
-
-    public void fillGroupForm(GroupData groupData) {
-        wd.findElement(By.name("group_name")).click();
-        wd.findElement(By.name("group_name")).clear();
-        wd.findElement(By.name("group_name")).sendKeys(groupData.getName());
-        if (!wd.findElement(By.xpath("//div[@id='content']/form/select//option[1]")).isSelected()) {
-            wd.findElement(By.xpath("//div[@id='content']/form/select//option[1]")).click();
-        }
-        wd.findElement(By.name("group_header")).click();
-        wd.findElement(By.name("group_header")).clear();
-        wd.findElement(By.name("group_header")).sendKeys(groupData.getHeader());
-        wd.findElement(By.name("group_footer")).click();
-        wd.findElement(By.name("group_footer")).clear();
-        wd.findElement(By.name("group_footer")).sendKeys(groupData.getFooter());
-    }
-
-    public void submitGroupCreation() {
-        wd.findElement(By.name("submit")).click();
-    }
-
-    public void createNewGroup() {
-        wd.findElement(By.name("new")).click();
-    }
-
-    public void groupPage() {
-        wd.findElement(By.linkText("groups")).click();
     }
 
     public void fillContactForm(ContactData contactData) {
@@ -97,10 +71,15 @@ public class AppManager {
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.id("LoginForm")).click();
+        groupHelper = new GroupHelper(wd);
         login("secret", "admin");
     }
 
     public void stop() {
         wd.quit();
+    }
+
+    public GroupHelper getGroupHelper() {
+        return groupHelper;
     }
 }
