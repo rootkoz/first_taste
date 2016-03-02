@@ -40,10 +40,6 @@ public class GroupHelper {
         wd.findElement(By.name("new")).click();
     }
 
-    public void groupPage() {
-        wd.findElement(By.linkText("groups")).click();
-    }
-
     public void deleteSelectedGroup() {
         wd.findElement(By.xpath("//div[@id='content']/form/input[5]")).click();
     }

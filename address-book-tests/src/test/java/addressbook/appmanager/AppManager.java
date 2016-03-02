@@ -12,11 +12,13 @@ import java.util.concurrent.TimeUnit;
  */
 
 
-public class AppManager extends NavigationHelper{
+public class AppManager {
     FirefoxDriver wd;
 
     protected  ContactHelper contactHelper;
     protected  GroupHelper groupHelper;
+    protected  NavigationHelper navigationHelper;
+    protected SessionHelper sessionHelper;
 
     public static boolean isAlertPresent(FirefoxDriver wd) {
         try {
@@ -27,14 +29,7 @@ public class AppManager extends NavigationHelper{
         }
     }
 
-    public void login(String password, String username) {
-        wd.findElement(By.name("user")).clear();
-        wd.findElement(By.name("user")).sendKeys(username);
-        wd.findElement(By.name("pass")).click();
-        wd.findElement(By.name("pass")).clear();
-        wd.findElement(By.name("pass")).sendKeys(password);
-        wd.findElement(By.xpath("//form[@id='LoginForm']/input[3]")).click();
-    }
+
 
     public void init() {
         wd = new FirefoxDriver();
@@ -42,7 +37,10 @@ public class AppManager extends NavigationHelper{
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.id("LoginForm")).click();
         groupHelper = new GroupHelper(wd);
-        login("secret", "admin");
+        contactHelper = new ContactHelper(wd);
+        navigationHelper = new NavigationHelper(wd);
+        sessionHelper = new SessionHelper(wd);
+        sessionHelper.login("secret", "admin");
     }
 
     public void stop() {
@@ -55,5 +53,17 @@ public class AppManager extends NavigationHelper{
 
     public ContactHelper getContactHelper() {
         return contactHelper;
+    }
+
+    public NavigationHelper getNavigationHelper() {
+        return navigationHelper;
+    }
+
+    public SessionHelper getSessionHelper() {
+        return sessionHelper;
+    }
+
+    public void groupPage() {
+        navigationHelper.groupPage();
     }
 }

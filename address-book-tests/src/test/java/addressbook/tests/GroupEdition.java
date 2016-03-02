@@ -13,10 +13,10 @@ public class GroupEdition extends TestBase{
 
     @Test
     public void editGroupTest() {
-        groupHelper.groupPage();
+        navigationHelper.groupPage();
         groupHelper.selectGroup();
         groupHelper.editGroup("EDITED", "e-GROUP", "-321-");
-        groupHelper.groupPage();
+        navigationHelper.groupPage();
     }
 
 }
