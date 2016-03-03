@@ -9,7 +9,7 @@ import org.testng.annotations.Test;
 public class GroupDeletion extends TestBase{
 
     @Test
-    public void groupDeletionTest() {
+    public void testGroupDeletion() {
         app.getNavigationHelper().groupPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().deleteSelectedGroup();

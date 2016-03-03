@@ -11,10 +11,10 @@ import org.testng.annotations.Test;
 public class GroupCreation extends TestBase {
 
     @Test
-    public void testCreateGroup() {
+    public void testGroupCreation() {
         app.getNavigationHelper().groupPage();
         app.getGroupHelper().createNewGroup();
-        app.getGroupHelper().fillGroupForm(new GroupData("G5", "G5-header", "G5-footer"));
+        app.getGroupHelper().modifyGroup(new GroupData("name", "headSpins", "g-name"));
         app.getGroupHelper().submitGroupCreation();
         app.getNavigationHelper().groupPage();
     }

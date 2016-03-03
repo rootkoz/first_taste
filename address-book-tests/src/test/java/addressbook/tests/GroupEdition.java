@@ -4,15 +4,18 @@ package addressbook.tests;
  * >(((*>
  */
 
+import addressbook.model.GroupData;
 import org.testng.annotations.Test;
 
 public class GroupEdition extends TestBase{
 
     @Test
-    public void editGroupTest() {
+    public void testGroupEdition() {
         app.getNavigationHelper().groupPage();
         app.getGroupHelper().selectGroup();
-        app.getGroupHelper().editGroup("EDITED", "e-GROUP", "-321-");
+        app.getGroupHelper().editSelectedGroup();
+        app.getGroupHelper().modifyGroup(new GroupData("EDITED", "e-GROUP", "-321-"));
+        app.getGroupHelper().updateGroupPage();
         app.getNavigationHelper().groupPage();
     }
 
