@@ -12,8 +12,9 @@ import org.testng.annotations.Test;
 public class ContactEdition extends TestBase {
     @Test
     public void testContactModifying(){
+        app.getContactHelper().selectContact();
         app.getContactHelper().editContact();
-        app.getContactHelper().fillContactForm(new ContactData("EDITED-TESTBAS", "e-lastname", "e-Contact-nick", "e- schi", "e-notes"));
+        app.getContactHelper().fillContactForm(new ContactData("ED557ITED-TESTBAS", "e-lastname", "e-Contact-nick", "e- schi", "e-notes"));
         app.getContactHelper().updateContact();
     }
 }

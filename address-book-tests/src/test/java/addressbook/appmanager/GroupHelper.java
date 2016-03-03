@@ -20,25 +20,24 @@ public class GroupHelper extends HelperBase{
         click(By.name("submit"));
     }
 
+    public void submitGroupUpdate() {
+        click(By.name("update"));
+    }
+
     public void createNewGroup() {
         click(By.name("new"));
     }
 
-    public void deleteSelectedGroup() {
-        click(By.xpath("//div[@id='content']/form/input[5]"));
+    public void editSelectedGroup() {
+        click(By.name("edit"));
     }
 
     public void selectGroup() {
         click(By.name("selected[]"));
     }
 
-
-    public void editSelectedGroup() {
-        click(By.name("edit"));
-    }
-
-    public void updateGroupPage() {
-        click(By.name("update"));
+    public void deleteSelectedGroup() {
+        click(By.name("delete"));
     }
 
     public void modifyGroup(GroupData groupData) {

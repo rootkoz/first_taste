@@ -15,7 +15,7 @@ public class GroupEdition extends TestBase{
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().editSelectedGroup();
         app.getGroupHelper().modifyGroup(new GroupData("EDITED", "e-GROUP", "-321-"));
-        app.getGroupHelper().updateGroupPage();
+        app.getGroupHelper().submitGroupUpdate();
         app.getNavigationHelper().groupPage();
     }
 
