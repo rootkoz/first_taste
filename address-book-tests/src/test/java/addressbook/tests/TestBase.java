@@ -1,8 +1,6 @@
 package addressbook.tests;
 
 import addressbook.appmanager.AppManager;
-import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 
@@ -12,20 +10,18 @@ import org.testng.annotations.BeforeMethod;
  */
 
 
-public class TestBase extends AppManager {
+public class TestBase {
 
-    FirefoxDriver wd;
+    protected final AppManager app = new AppManager();
 
     @BeforeMethod
     public void setUp() throws Exception {
-        init();
+        app.init();
     }
 
     @AfterMethod
     public void tearDown() {
-        stop();
+        app.stop();
     }
-
-
 
 }

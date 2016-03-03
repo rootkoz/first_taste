@@ -39,9 +39,11 @@ public class GroupHelper extends HelperBase{
     }
     public void editGroup(String header, String footer, String groupname) {
         click(By.name("edit"));
+
         type(By.name("group_header"), header);
         type(By.name("group_footer"), footer);
         type(By.name("group_name"), groupname);
+
         click(By.name("update"));
     }
 }

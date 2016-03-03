@@ -6,17 +6,14 @@ package addressbook.tests;
 
 import org.testng.annotations.Test;
 
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.*;
-
 public class GroupEdition extends TestBase{
 
     @Test
     public void editGroupTest() {
-        navigationHelper.groupPage();
-        groupHelper.selectGroup();
-        groupHelper.editGroup("EDITED", "e-GROUP", "-321-");
-        navigationHelper.groupPage();
+        app.getNavigationHelper().groupPage();
+        app.getGroupHelper().selectGroup();
+        app.getGroupHelper().editGroup("EDITED", "e-GROUP", "-321-");
+        app.getNavigationHelper().groupPage();
     }
 
 }
