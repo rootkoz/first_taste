@@ -38,7 +38,7 @@ public class AppManager {
         }
 
 
-        wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+        wd.manage().timeouts().implicitlyWait(6, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.id("LoginForm")).click();
         groupHelper = new GroupHelper(wd);

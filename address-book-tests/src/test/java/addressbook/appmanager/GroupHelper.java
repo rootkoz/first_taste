@@ -2,6 +2,7 @@ package addressbook.appmanager;
 
 import addressbook.model.GroupData;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 
 /***
@@ -25,7 +26,10 @@ public class GroupHelper extends HelperBase{
     }
 
     public void createNewGroup() {
-        click(By.name("new"));
+        if (isElementPresent(By.name("new"))){
+            click(By.name("new"));
+        }
+
     }
 
     public void editSelectedGroup() {
