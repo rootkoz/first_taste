@@ -1,7 +1,9 @@
 package addressbook.appmanager;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.BrowserType;
 
 import java.util.concurrent.TimeUnit;
 
@@ -12,7 +14,7 @@ import java.util.concurrent.TimeUnit;
 
 
 public class AppManager {
-    FirefoxDriver wd;
+    WebDriver wd;
 
     private ContactHelper contactHelper;
     private GroupHelper groupHelper;
@@ -20,7 +22,10 @@ public class AppManager {
     private SessionHelper sessionHelper;
 
     public void init() {
+
+        String browser = BrowserType.FIREFOX;
         wd = new FirefoxDriver();
+
         wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
         wd.findElement(By.id("LoginForm")).click();
