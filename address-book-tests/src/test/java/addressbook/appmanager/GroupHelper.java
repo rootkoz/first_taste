@@ -26,10 +26,7 @@ public class GroupHelper extends HelperBase{
     }
 
     public void createNewGroup() {
-        if (isElementPresent(By.name("new"))){
-            click(By.name("new"));
-        }
-
+        click(By.name("new"));
     }
 
     public void editSelectedGroup() {

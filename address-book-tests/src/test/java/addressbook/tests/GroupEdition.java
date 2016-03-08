@@ -14,7 +14,7 @@ public class GroupEdition extends TestBase{
         app.getNavigationHelper().groupPage();
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().editSelectedGroup();
-        app.getGroupHelper().modifyGroup(new GroupData("zer", null, "0aaa"));
+        app.getGroupHelper().modifyGroup(new GroupData(null, "headSpins", "0aaa"));
         app.getGroupHelper().submitGroupUpdate();
         app.getNavigationHelper().groupPage();
     }
