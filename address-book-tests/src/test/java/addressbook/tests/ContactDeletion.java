@@ -11,10 +11,10 @@ import org.testng.annotations.Test;
 public class ContactDeletion extends TestBase {
 
     @Test
-    public void testContactDeletion(){
+    public void testContactDeletion() {
+        createContactIfNotExists();
         app.getContactHelper().selectContact();
         app.getContactHelper().deleteSelectedContact();
-
     }
 
 }
