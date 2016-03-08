@@ -13,9 +13,7 @@ public class GroupCreation extends TestBase {
     @Test
     public void testGroupCreation() {
         app.getNavigationHelper().groupPage();
-        app.getGroupHelper().createNewGroup();
-        app.getGroupHelper().modifyGroup(new GroupData("Z", "headSpins", "g-name"));
-        app.getGroupHelper().submitGroupCreation();
+        app.getGroupHelper().createGroup(new GroupData("Z", "headSpins", "g-name"));
         app.getNavigationHelper().groupPage();
     }
 

@@ -12,9 +12,10 @@ public class GroupEdition extends TestBase{
     @Test
     public void testGroupEdition() {
         app.getNavigationHelper().groupPage();
+        createGroupIfNotExist(new GroupData("4 Edition", "headSpins", "aaa"));
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().editSelectedGroup();
-        app.getGroupHelper().modifyGroup(new GroupData(null, "headSpins", "0aaa"));
+        app.getGroupHelper().modifyGroup(new GroupData("Edited", "backSpin", "0aaa"));
         app.getGroupHelper().submitGroupUpdate();
         app.getNavigationHelper().groupPage();
     }

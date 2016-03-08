@@ -26,7 +26,7 @@ public class NavigationHelper extends HelperBase {
     }
 
     public void newContactPage() {
-        if (isElementPresent(By.name("submit"))) {
+        if (isElementPresent(By.name("photo"))){
             return;
         }
         click(By.linkText("add new"));

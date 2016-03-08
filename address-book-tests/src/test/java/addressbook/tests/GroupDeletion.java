@@ -4,6 +4,7 @@ package addressbook.tests;
  * >(((*>
  */
 
+import addressbook.model.GroupData;
 import org.testng.annotations.Test;
 
 public class GroupDeletion extends TestBase{
@@ -15,5 +16,7 @@ public class GroupDeletion extends TestBase{
         app.getGroupHelper().deleteSelectedGroup();
         app.getNavigationHelper().groupPage();
     }
+
+
 
 }
