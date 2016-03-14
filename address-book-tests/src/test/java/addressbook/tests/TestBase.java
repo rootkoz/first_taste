@@ -15,7 +15,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
 
-    protected final AppManager app = new AppManager(BrowserType.IE);
+    protected final AppManager app = new AppManager(BrowserType.FIREFOX);
 
     @BeforeMethod
     public void setUp() throws Exception {

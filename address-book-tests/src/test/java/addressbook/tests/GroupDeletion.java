@@ -5,18 +5,25 @@ package addressbook.tests;
  */
 
 import addressbook.model.GroupData;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class GroupDeletion extends TestBase{
 
     @Test
     public void testGroupDeletion() {
         app.getNavigationHelper().groupPage();
-        createGroupIfNotExist(new GroupData("4 Deletion", "headSpins", "aaa"));
+        List<GroupData> before = app.getGroupHelper().getGroupList();
+        createGroupIfNotExist(new GroupData("4 Deletion", "hdSpns", "abba"));
         app.getGroupHelper().selectGroup();
         app.getGroupHelper().deleteSelectedGroup();
         app.getNavigationHelper().groupPage();
-    }
+        List<GroupData> after = app.getGroupHelper().getGroupList();
+
+        Assert.assertEquals(after.size(), before.size()-1);
+        }
 
 
 
