@@ -17,11 +17,18 @@ public class GroupCreation extends TestBase {
     public void testGroupCreation() {
         app.getNavigationHelper().groupPage();
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().createGroup(new GroupData("Z", "headSpins", "g-name"));
+
+        GroupData group = new GroupData("Z", "headSpins", "g-name");
+
+        app.getGroupHelper().createGroup(group);
         app.getNavigationHelper().groupPage();
+
         List<GroupData> after = app.getGroupHelper().getGroupList();
 
-        Assert.assertEquals(after.size(), before.size()+1);
+//        Assert.assertEquals(after.size(), before.size()+1);
+
+        before.add(group);
+        Assert.assertEquals(before,after);
     }
 
 }
