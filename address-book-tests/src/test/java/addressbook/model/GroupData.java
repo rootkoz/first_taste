@@ -7,7 +7,6 @@ public class GroupData {
     private final String footer;
 
 
-
     public GroupData(int id, String name, String header, String footer) {
         this.id = id;
         this.name = name;
