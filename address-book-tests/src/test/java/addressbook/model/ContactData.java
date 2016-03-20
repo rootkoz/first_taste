@@ -1,16 +1,16 @@
 package addressbook.model;
 
 public class ContactData {
-    private int id;
     private final String name;
     private final String lastName;
     private final String nickName;
     private final String company;
     private final String notes;
+    private int id;
 
 
     public ContactData(String name, String lastName, String nickname, String company, String notes) {
-        this.id=Integer.MAX_VALUE;
+        this.id = Integer.MAX_VALUE;
         this.name = name;
         this.lastName = lastName;
         this.nickName = nickname;
@@ -47,6 +47,10 @@ public class ContactData {
         return notes;
     }
 
+    public int getId() {
+        return id;
+    }
+
     @Override
     public String toString() {
         return "ContactData{" +
@@ -74,4 +78,6 @@ public class ContactData {
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
         return result;
     }
+
 }
+

@@ -28,7 +28,7 @@ public class TestBase {
     }
 
     protected void createGroupIfNotExist(GroupData group) {
-        if (! app.getGroupHelper().groupExists()){
+        if (!app.getGroupHelper().groupExists()) {
             app.getGroupHelper().createGroup(group);
             app.getNavigationHelper().groupPage();
         }

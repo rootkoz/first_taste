@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 import java.util.List;
 
-public class GroupDeletion extends TestBase{
+public class GroupDeletion extends TestBase {
 
     @Test
     public void testGroupDeletion() {
@@ -18,15 +18,12 @@ public class GroupDeletion extends TestBase{
         createGroupIfNotExist(new GroupData("4 Deletion", "hdSpns", "abba"));
 
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        app.getGroupHelper().selectGroup(before.size()-1);
+        app.getGroupHelper().selectGroup(before.size() - 1);
         app.getGroupHelper().deleteSelectedGroup();
         app.getNavigationHelper().groupPage();
         List<GroupData> after = app.getGroupHelper().getGroupList();
 
-        before.remove(before.size()-1);
+        before.remove(before.size() - 1);
         Assert.assertEquals(after, before);
-        }
-
-
-
+    }
 }
