@@ -16,14 +16,14 @@ public class ContactDeletion extends TestBase {
 
     @Test
     public void testContactDeletion() {
-        createContactIfNotExists();
+        createContactIfNotExists(contactDummy);
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getContactHelper().selectContact(before.size() - 1);
         app.getContactHelper().deleteSelectedContact();
         app.getNavigationHelper().homePage();
         List<ContactData> after = app.getContactHelper().getContactList();
 
-        before.remove(before.size()-1);
+        before.remove(before.size() - 1);
         Assert.assertEquals(after, before);
     }
 
