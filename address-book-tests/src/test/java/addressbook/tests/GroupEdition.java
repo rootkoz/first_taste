@@ -16,15 +16,17 @@ public class GroupEdition extends TestBase {
     @Test
     public void testGroupEdition() {
         app.getNavigationHelper().groupPage();
-        createGroupIfNotExist(new GroupData("4 Edition", "headSpins", "aaa"));
+        createGroupIfNotExist(groupDummy);
 
         List<GroupData> before = app.getGroupHelper().getGroupList();
-        GroupData groupData = new GroupData(before.get(before.size() - 1).getId(), "4 Edition", "headSpins", "aaa");
+        GroupData groupData = new GroupData(before.get(before.size() - 1).getId(), "Edited", "e-headSpins", "e-aaa");
+
         app.getGroupHelper().selectGroup(before.size() - 1);
         app.getGroupHelper().editSelectedGroup();
         app.getGroupHelper().modifyGroup(groupData);
         app.getGroupHelper().submitGroupUpdate();
         app.getNavigationHelper().groupPage();
+
         List<GroupData> after = app.getGroupHelper().getGroupList();
         Assert.assertEquals(before.size(), after.size());
 

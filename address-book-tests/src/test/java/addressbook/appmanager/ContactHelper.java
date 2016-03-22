@@ -16,7 +16,6 @@ import java.util.List;
 
 public class ContactHelper extends HelperBase {
 
-    private List<ContactData> contactList;
 
     public ContactHelper(WebDriver wd) {
         super(wd);
@@ -47,8 +46,8 @@ public class ContactHelper extends HelperBase {
         accept();
     }
 
-    public void editContact() {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
+    public void editContact(int index) {
+        click(By.xpath("//table[@id='maintable']/tbody/tr[" + index + "]/td[8]/a/img"));
     }
 
     public boolean contactExists() {
@@ -58,7 +57,6 @@ public class ContactHelper extends HelperBase {
     public void createContact(ContactData contact) {
         fillContactForm(contact);
         submitContactCreation();
-
     }
 
     public List<ContactData> getContactList() {
