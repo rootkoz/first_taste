@@ -16,6 +16,8 @@ public class ContactCreation extends TestBase {
 
     @Test
     public void testContactCreation() {
+        ContactData contactDummy = new ContactData("111-TESTBAS", "Contact-lastname", "Contact-nick", "schi", "Contact-notes");
+
         List<ContactData> before = app.getContactHelper().getContactList();
         app.getNavigationHelper().newContactPage();
         app.getContactHelper().fillContactForm(contactDummy);

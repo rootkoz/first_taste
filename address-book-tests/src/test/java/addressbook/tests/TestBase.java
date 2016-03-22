@@ -16,8 +16,6 @@ import org.testng.annotations.BeforeMethod;
 public class TestBase {
 
     protected final AppManager app = new AppManager(BrowserType.FIREFOX);
-    protected GroupData groupDummy = new GroupData("Zorr0", "headSpins", "toe");
-    protected ContactData contactDummy = new ContactData("ED557ITED-", "e-lastname", "e-Contact-nick", "e- schi", "e-notes");
 
     @BeforeMethod
     public void setUp() throws Exception {
@@ -36,10 +34,10 @@ public class TestBase {
         }
     }
 
-    protected void createContactIfNotExists(ContactData contactData) {
+    protected void createContactIfNotExists() {
         if (!app.getContactHelper().contactExists()) {
             app.getNavigationHelper().newContactPage();
-            app.getContactHelper().createContact(contactData);
+            app.getContactHelper().createContact(new ContactData("4 Edition/Deletion", null, "11", null, "33"));
             app.getNavigationHelper().homePage();
         }
     }
