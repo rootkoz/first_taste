@@ -5,7 +5,9 @@ import addressbook.model.ContactData;
 import addressbook.model.GroupData;
 import org.openqa.selenium.remote.BrowserType;
 import org.testng.annotations.AfterMethod;
+import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.BeforeSuite;
 
 /***
  * by rootkoz
@@ -15,16 +17,16 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
 
-    protected final AppManager app = new AppManager(BrowserType.FIREFOX);
+    protected static final AppManager app = new AppManager(BrowserType.FIREFOX);
     protected GroupData groupDummy = new GroupData("Zorr0", "headSpins", "toe");
     protected ContactData contactDummy = new ContactData("ED557ITED-", "e-lastname", "e-Contact-nick", "e- schi", "e-notes");
 
-    @BeforeMethod
+    @BeforeSuite
     public void setUp() throws Exception {
         app.init();
     }
 
-    @AfterMethod
+    @AfterSuite
     public void tearDown() {
         app.stop();
     }

@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
+import addressbook.model.GroupData;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -25,8 +26,9 @@ public class ContactEdition extends TestBase {
         app.getNavigationHelper().homePage();
         List<ContactData> after = app.getContactHelper().getContactList();
 
+        ContactData contactData = new ContactData(before.get(before.size()-1).getId(), "ED557ITED-", "e-lastname", "e-Contact-nick", "e- schi", "e-notes");
         before.remove(before.size() - 1);
-        before.add(contactDummy);
+        before.add(contactData);
 
         Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
         before.sort(byId);

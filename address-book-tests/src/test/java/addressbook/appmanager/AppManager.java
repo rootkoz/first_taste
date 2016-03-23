@@ -39,7 +39,7 @@ public class AppManager {
 
 
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
-        wd.get("http://localhost:808/addressbook/");
+        wd.get("http://localhost/addressbook/");
         wd.findElement(By.id("LoginForm")).click();
         groupHelper = new GroupHelper(wd);
         contactHelper = new ContactHelper(wd);
