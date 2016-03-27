@@ -16,6 +16,7 @@ import java.util.Set;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.*;
+import static org.testng.Assert.assertEquals;
 
 public class GroupEdition extends TestBase {
 
@@ -37,7 +38,7 @@ public class GroupEdition extends TestBase {
         app.goTo().groupPage();
 
         Groups after = app.group().all();
-        Assert.assertEquals(before.size(), after.size());
+        assertEquals(before.size(), after.size());
 
         assertThat(after, equalTo(before.without(modifyGroup).withAdded(groupData)));
     }

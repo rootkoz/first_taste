@@ -6,10 +6,10 @@ package addressbook.tests;
 
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
-import org.hamcrest.CoreMatchers;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.testng.Assert.assertEquals;
 
@@ -31,7 +31,7 @@ public class GroupDeletion extends TestBase {
         Groups after = app.group().all();
 
         assertEquals(after.size(), before.size()-1);
-        assertThat(after, CoreMatchers.equalTo(before.without(deleteGroup)));
+        assertThat(after, equalTo(before.without(deleteGroup)));
     }
 
 }

@@ -1,11 +1,12 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import org.testng.Assert;
+import addressbook.model.Contacts;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Set;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 /***
  * by rootkoz
@@ -22,17 +23,15 @@ public class ContactEdition extends TestBase {
 
     @Test
     public void testContactEdition() {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
         ContactData editContact = before.iterator().next();
 
         app.contact().modify(editContact);
         app.goTo().homePage();
 
-        Set<ContactData> after = app.contact().all();
+        Contacts after = app.contact().all();
         ContactData contactData = contactDummy.withId(editContact.getId());
-        before.remove(editContact);
-        before.add(contactData);
 
-        Assert.assertEquals(before, after);
+        assertThat(after, equalTo(before.without(editContact).withAdded(contactData)));
     }
 }
