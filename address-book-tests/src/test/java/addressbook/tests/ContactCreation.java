@@ -6,28 +6,32 @@ package addressbook.tests;
  */
 
 import addressbook.model.ContactData;
+import addressbook.model.Contacts;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.Set;
 
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+
 public class ContactCreation extends TestBase {
 
     @Test
     public void testContactCreation() {
-        Set<ContactData> before = app.contact().all();
+        Contacts before = app.contact().all();
 
         app.goTo().newContactPage();
         app.contact().create(contactDummy);
         app.goTo().homePage();
-        Set<ContactData> after = app.contact().all();
+        Contacts after = app.contact().all();
 
         Assert.assertEquals(after.size(), before.size() + 1);
 
-        contactDummy.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt());
-        before.add(contactDummy);
-
-        Assert.assertEquals(after, before);
+        assertThat(after, equalTo
+                (before.withAdded(contactDummy.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
 
