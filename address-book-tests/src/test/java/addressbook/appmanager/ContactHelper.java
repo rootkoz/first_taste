@@ -6,7 +6,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /***
  * by rootkoz
@@ -37,9 +39,10 @@ public class ContactHelper extends HelperBase {
         click(By.name("update"));
     }
 
-    public void selectContact(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    private void selectContactById(int id) {
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
+
 
     public void deleteSelectedContact() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
@@ -70,10 +73,13 @@ public class ContactHelper extends HelperBase {
         updateContact();
     }
 
-    public void delete(int index) {
-        selectContact(index);
+
+    public void delete(ContactData contact) {
+        int a = contact.getId();
+        selectContactById(contact.getId());
         deleteSelectedContact();
     }
+
 
     public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
@@ -89,4 +95,21 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
+
+    public Set<ContactData> all() {
+        Set<ContactData> contacts = new HashSet<>();
+        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//tr[@name='entry']"));
+        for (WebElement element : elements) {
+            List<WebElement> contactBasic = element.findElements(By.tagName("td"));
+            String name = contactBasic.get(2).getText();
+            String lastName = contactBasic.get(1).getText();
+            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
+            contacts.add(contact);
+        }
+        return contacts;
+    }
+
+
 }

@@ -21,9 +21,6 @@ public class GroupDeletion extends TestBase {
 
     @Test
     public void testGroupDeletion() {
-
-        createGroupIfNotExist(groupDummy);
-
         Set<GroupData> before = app.group().all();
         GroupData deleteGroup = before.iterator().next();
 
