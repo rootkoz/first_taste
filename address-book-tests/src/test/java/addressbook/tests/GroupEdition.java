@@ -16,18 +16,15 @@ public class GroupEdition extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
+        app.goTo().groupPage();
         createGroupIfNotExist(groupDummy);
     }
 
     @Test
     public void testGroupEdition() {
-        app.goTo().groupPage();
-
-
-
         List<GroupData> before = app.group().list();
         int index = before.size() - 1;
-        GroupData groupData = new GroupData(before.get(index).getId(), "Edited", "e-headSpins", "e-aaa");
+        GroupData groupData = new GroupData().withId(before.get(index).getId()).withHeader("Edited").withName("backspins").withFooter("o-O");
 
         app.group().modify(index, groupData);
 

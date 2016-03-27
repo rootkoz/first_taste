@@ -14,7 +14,6 @@ import java.util.List;
 
 public class GroupCreation extends TestBase {
 
-
     @Test
     public void testGroupCreation() {
         app.goTo().groupPage();

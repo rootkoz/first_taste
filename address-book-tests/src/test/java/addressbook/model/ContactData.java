@@ -1,31 +1,13 @@
 package addressbook.model;
 
 public class ContactData {
-    private final String name;
-    private final String lastName;
-    private final String nickName;
-    private final String company;
-    private final String notes;
-    private int id;
+    private  String name;
+    private  String lastName;
+    private  String nickName;
+    private  String company;
+    private  String notes;
+    private int id = Integer.MAX_VALUE;;
 
-
-    public ContactData(String name, String lastName, String nickname, String company, String notes) {
-        this.id = Integer.MAX_VALUE;
-        this.name = name;
-        this.lastName = lastName;
-        this.nickName = nickname;
-        this.company = company;
-        this.notes = notes;
-    }
-
-    public ContactData(int id, String name, String lastName, String nickName, String company, String notes) {
-        this.id = id;
-        this.nickName = nickName;
-        this.company = company;
-        this.notes = notes;
-        this.name = name;
-        this.lastName = lastName;
-    }
 
     public String getName() {
         return name;
@@ -49,6 +31,37 @@ public class ContactData {
 
     public int getId() {
         return id;
+    }
+
+
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public ContactData withLastName(String lastName) {
+        this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withNotes(String notes) {
+        this.notes = notes;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
+        return this;
     }
 
     @Override

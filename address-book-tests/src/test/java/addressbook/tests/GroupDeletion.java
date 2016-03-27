@@ -15,12 +15,13 @@ public class GroupDeletion extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
+        app.goTo().groupPage();
         createGroupIfNotExist(groupDummy);
     }
 
     @Test
     public void testGroupDeletion() {
-        app.goTo().groupPage();
+
         createGroupIfNotExist(groupDummy);
 
         List<GroupData> before = app.group().list();

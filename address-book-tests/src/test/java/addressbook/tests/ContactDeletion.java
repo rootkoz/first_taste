@@ -27,8 +27,8 @@ public class ContactDeletion extends TestBase {
 
         app.contact().delete(index);
         app.goTo().homePage();
-        List<ContactData> after = app.contact().list();
 
+        List<ContactData> after = app.contact().list();
         before.remove(index);
         Assert.assertEquals(after, before);
     }

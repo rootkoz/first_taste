@@ -30,8 +30,8 @@ public class ContactEdition extends TestBase {
         app.goTo().homePage();
 
         List<ContactData> after = app.contact().list();
+        ContactData contactData = contactDummy.withId(before.get(index).getId());
 
-        ContactData contactData = new ContactData(before.get(index).getId(), "ED557ITED-", "e-lastname", "e-Contact-nick", "e- schi", "e-notes");
         before.remove(index);
         before.add(contactData);
 
