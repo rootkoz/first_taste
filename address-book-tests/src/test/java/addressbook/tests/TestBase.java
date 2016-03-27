@@ -4,9 +4,7 @@ import addressbook.appmanager.AppManager;
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
 import org.openqa.selenium.remote.BrowserType;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 /***
@@ -32,17 +30,17 @@ public class TestBase {
     }
 
     protected void createGroupIfNotExist(GroupData group) {
-        if (!app.getGroupHelper().groupExists()) {
-            app.getGroupHelper().createGroup(group);
-            app.getNavigationHelper().groupPage();
+        if (!app.group().groupExists()) {
+            app.group().create(group);
+            app.goTo().groupPage();
         }
     }
 
     protected void createContactIfNotExists(ContactData contactData) {
-        if (!app.getContactHelper().contactExists()) {
-            app.getNavigationHelper().newContactPage();
-            app.getContactHelper().createContact(contactData);
-            app.getNavigationHelper().homePage();
+        if (!app.contact().contactExists()) {
+            app.goTo().newContactPage();
+            app.contact().createContact(contactData);
+            app.goTo().homePage();
         }
     }
 }

@@ -1,8 +1,8 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
-import addressbook.model.GroupData;
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Comparator;
@@ -15,19 +15,24 @@ import java.util.List;
 
 
 public class ContactEdition extends TestBase {
+
+    @BeforeMethod
+    public void preConditions() {
+        createContactIfNotExists(contactDummy);
+    }
+
     @Test
     public void testContactEdition() {
-        createContactIfNotExists(contactDummy);
+        List<ContactData> before = app.contact().list();
+        int index = before.size() - 1;
 
-        List<ContactData> before = app.getContactHelper().getContactList();
-        app.getContactHelper().editContact(before.size() + 1); // cause of table structure
-        app.getContactHelper().fillContactForm(contactDummy);
-        app.getContactHelper().updateContact();
-        app.getNavigationHelper().homePage();
-        List<ContactData> after = app.getContactHelper().getContactList();
+        app.contact().modify(index + 2, contactDummy);  // cause of table structure
+        app.goTo().homePage();
 
-        ContactData contactData = new ContactData(before.get(before.size()-1).getId(), "ED557ITED-", "e-lastname", "e-Contact-nick", "e- schi", "e-notes");
-        before.remove(before.size() - 1);
+        List<ContactData> after = app.contact().list();
+
+        ContactData contactData = new ContactData(before.get(index).getId(), "ED557ITED-", "e-lastname", "e-Contact-nick", "e- schi", "e-notes");
+        before.remove(index);
         before.add(contactData);
 
         Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
@@ -36,4 +41,5 @@ public class ContactEdition extends TestBase {
 
         Assert.assertEquals(before, after);
     }
+
 }

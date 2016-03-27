@@ -59,7 +59,23 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
     }
 
-    public List<ContactData> getContactList() {
+    public void create(ContactData contactDummy) {
+        fillContactForm(contactDummy);
+        submitContactCreation();
+    }
+
+    public void modify(int index, ContactData contactDummy) {
+        editContact(index);
+        fillContactForm(contactDummy);
+        updateContact();
+    }
+
+    public void delete(int index) {
+        selectContact(index);
+        deleteSelectedContact();
+    }
+
+    public List<ContactData> list() {
         List<ContactData> contacts = new ArrayList<ContactData>();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//tr[@name='entry']"));
         for (WebElement element : elements) {
