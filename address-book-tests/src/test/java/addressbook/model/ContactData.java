@@ -6,7 +6,7 @@ public class ContactData {
     private  String nickName;
     private  String company;
     private  String notes;
-    private int id = Integer.MAX_VALUE;;
+    private int id = Integer.MAX_VALUE;
 
 
     public String getName() {

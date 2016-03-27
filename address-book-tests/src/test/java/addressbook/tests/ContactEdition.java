@@ -5,8 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 /***
  * by rootkoz
@@ -23,23 +22,17 @@ public class ContactEdition extends TestBase {
 
     @Test
     public void testContactEdition() {
-        List<ContactData> before = app.contact().list();
-        int index = before.size() - 1;
+        Set<ContactData> before = app.contact().all();
+        ContactData editContact = before.iterator().next();
 
-        app.contact().modify(index + 2, contactDummy);  // cause of table structure
+        app.contact().modify(editContact);
         app.goTo().homePage();
 
-        List<ContactData> after = app.contact().list();
-        ContactData contactData = contactDummy.withId(before.get(index).getId());
-
-        before.remove(index);
+        Set<ContactData> after = app.contact().all();
+        ContactData contactData = contactDummy.withId(editContact.getId());
+        before.remove(editContact);
         before.add(contactData);
-
-        Comparator<? super ContactData> byId = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
-        before.sort(byId);
-        after.sort(byId);
 
         Assert.assertEquals(before, after);
     }
-
 }

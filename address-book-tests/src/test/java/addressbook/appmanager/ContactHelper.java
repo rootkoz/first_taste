@@ -5,7 +5,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,9 +48,10 @@ public class ContactHelper extends HelperBase {
         accept();
     }
 
-    public void editContact(int index) {
-        click(By.xpath("//table[@id='maintable']/tbody/tr[" + index + "]/td[8]/a/img"));
+    public void editContact(int id) {
+        click(By.cssSelector("[href='edit.php?id=" + id + "'"));
     }
+
 
     public boolean contactExists() {
         return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
@@ -67,34 +67,18 @@ public class ContactHelper extends HelperBase {
         submitContactCreation();
     }
 
-    public void modify(int index, ContactData contactDummy) {
-        editContact(index);
-        fillContactForm(contactDummy);
+    public void modify(ContactData contact) {
+        editContact(contact.getId());
+        fillContactForm(contact);
         updateContact();
     }
 
 
     public void delete(ContactData contact) {
-        int a = contact.getId();
         selectContactById(contact.getId());
         deleteSelectedContact();
     }
 
-
-    public List<ContactData> list() {
-        List<ContactData> contacts = new ArrayList<ContactData>();
-        List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//tr[@name='entry']"));
-        for (WebElement element : elements) {
-            List<WebElement> contactBasic = element.findElements(By.tagName("td"));
-            String name = contactBasic.get(2).getText();
-            String lastName = contactBasic.get(1).getText();
-            int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-
-            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
-            contacts.add(contact);
-        }
-        return contacts;
-    }
 
     public Set<ContactData> all() {
         Set<ContactData> contacts = new HashSet<>();
@@ -110,6 +94,5 @@ public class ContactHelper extends HelperBase {
         }
         return contacts;
     }
-
 
 }

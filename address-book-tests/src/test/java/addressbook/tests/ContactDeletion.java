@@ -23,8 +23,8 @@ public class ContactDeletion extends TestBase {
     @Test
     public void testContactDeletion() {
         Set<ContactData> before = app.contact().all();
-
         ContactData deleteContact = before.iterator().next();
+
         app.contact().delete(deleteContact);
         app.goTo().homePage();
 
