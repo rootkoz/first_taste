@@ -5,8 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /***
  * by rootkoz
@@ -32,8 +33,8 @@ public class GroupHelper extends HelperBase {
         click(By.name("new"));
     }
 
-    public void selectGroup(int index) {
-        wd.findElements(By.name("selected[]")).get(index).click();
+    public void selectGroupById(int id) {
+        wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
     }
 
     public void editSelectedGroup() {
@@ -57,24 +58,26 @@ public class GroupHelper extends HelperBase {
         submitGroupCreation();
     }
 
-    public void modify(int index, GroupData groupData) {
-        selectGroup(index);
+    public void modify(GroupData groupData) {
+        selectGroupById(groupData.getId());
         editSelectedGroup();
         editGroup(groupData);
         submitGroupUpdate();
     }
 
-    public void delete(int index) {
-        selectGroup(index);
+
+    public void delete(GroupData group) {
+        selectGroupById(group.getId());
         deleteSelectedGroup();
     }
+
 
     public boolean groupExists() {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public List<GroupData> list() {
-        List<GroupData> groups = new ArrayList<GroupData>();
+    public Set<GroupData> all() {
+        Set<GroupData> groups = new HashSet<>();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
@@ -84,4 +87,6 @@ public class GroupHelper extends HelperBase {
         }
         return groups;
     }
+
+
 }

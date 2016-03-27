@@ -16,9 +16,7 @@ import org.testng.annotations.BeforeSuite;
 public class TestBase {
 
     protected static final AppManager app = new AppManager(BrowserType.FIREFOX);
-//    protected GroupData groupDummy = new GroupData("Zorr0", "headSpins", "toe");
     protected GroupData groupDummy = new GroupData().withName("Zorr0").withHeader("backspinS").withFooter("bod");
-//    protected ContactData contactDummy = new ContactData("ED557ITED-", "e-lastname", "e-Contact-nick", "e- schi", "e-notes");
     protected ContactData contactDummy = new ContactData().
         withName("EediteD").withLastName("e-Lname").withCompany("e-co").withNickName("e-nick").withNotes("e-notes");
 
@@ -33,7 +31,7 @@ public class TestBase {
     }
 
     protected void createGroupIfNotExist(GroupData group) {
-        if (app.group().list().size() == 0) {
+        if (app.group().all().size() == 0) {
             app.group().create(group);
             app.goTo().groupPage();
         }

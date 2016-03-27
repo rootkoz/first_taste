@@ -9,7 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.List;
+import java.util.Set;
 
 public class GroupDeletion extends TestBase {
 
@@ -24,14 +24,14 @@ public class GroupDeletion extends TestBase {
 
         createGroupIfNotExist(groupDummy);
 
-        List<GroupData> before = app.group().list();
-        int index = before.size() - 1;
+        Set<GroupData> before = app.group().all();
+        GroupData deleteGroup = before.iterator().next();
 
-        app.group().delete(index);
+        app.group().delete(deleteGroup);
         app.goTo().groupPage();
-        List<GroupData> after = app.group().list();
+        Set<GroupData> after = app.group().all();
 
-        before.remove(index);
+        before.remove(deleteGroup);
         Assert.assertEquals(after, before);
     }
 

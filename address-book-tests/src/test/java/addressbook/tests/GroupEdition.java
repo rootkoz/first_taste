@@ -9,8 +9,7 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Comparator;
-import java.util.List;
+import java.util.Set;
 
 public class GroupEdition extends TestBase {
 
@@ -22,23 +21,21 @@ public class GroupEdition extends TestBase {
 
     @Test
     public void testGroupEdition() {
-        List<GroupData> before = app.group().list();
-        int index = before.size() - 1;
-        GroupData groupData = new GroupData().withId(before.get(index).getId()).withHeader("Edited").withName("backspins").withFooter("o-O");
+        Set<GroupData> before = app.group().all();
+        GroupData modifyGroup = before.iterator().next();
 
-        app.group().modify(index, groupData);
+        GroupData groupData = new GroupData().withId(modifyGroup.getId()).withHeader("Edited").withName("backspins").withFooter("o-O");
+
+        app.group().modify(groupData);
 
         app.goTo().groupPage();
 
-        List<GroupData> after = app.group().list();
+        Set<GroupData> after = app.group().all();
         Assert.assertEquals(before.size(), after.size());
 
-        before.remove(index);
+        before.remove(modifyGroup);
         before.add(groupData);
 
-        Comparator<? super GroupData> byId = (g1, g2) -> Integer.compare(g1.getId(), g2.getId());
-        before.sort(byId);
-        after.sort(byId);
         Assert.assertEquals(after, before);
     }
 
