@@ -5,11 +5,17 @@ package addressbook.tests;
  */
 
 import addressbook.model.GroupData;
+import addressbook.model.Groups;
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.*;
 
 public class GroupEdition extends TestBase {
 
@@ -21,7 +27,7 @@ public class GroupEdition extends TestBase {
 
     @Test
     public void testGroupEdition() {
-        Set<GroupData> before = app.group().all();
+        Groups before = app.group().all();
         GroupData modifyGroup = before.iterator().next();
 
         GroupData groupData = new GroupData().withId(modifyGroup.getId()).withHeader("Edited").withName("backspins").withFooter("o-O");
@@ -30,13 +36,10 @@ public class GroupEdition extends TestBase {
 
         app.goTo().groupPage();
 
-        Set<GroupData> after = app.group().all();
+        Groups after = app.group().all();
         Assert.assertEquals(before.size(), after.size());
 
-        before.remove(modifyGroup);
-        before.add(groupData);
-
-        Assert.assertEquals(after, before);
+        assertThat(after, equalTo(before.without(modifyGroup).withAdded(groupData)));
     }
 
 
