@@ -1,13 +1,12 @@
 package addressbook.appmanager;
 
 import addressbook.model.GroupData;
+import addressbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /***
  * by rootkoz
@@ -34,7 +33,7 @@ public class GroupHelper extends HelperBase {
     }
 
     public void selectGroupById(int id) {
-        wd.findElement(By.cssSelector("input[value='"+id+"']")).click();
+        wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
     public void editSelectedGroup() {
@@ -76,14 +75,13 @@ public class GroupHelper extends HelperBase {
         return isElementPresent(By.name("selected[]"));
     }
 
-    public Set<GroupData> all() {
-        Set<GroupData> groups = new HashSet<>();
+    public Groups all() {
+        Groups groups = new Groups();
         List<WebElement> elements = wd.findElements(By.cssSelector("span.group"));
         for (WebElement element : elements) {
             String name = element.getText();
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
-            GroupData group = new GroupData().withName(name).withId(id);
-            groups.add(group);
+            groups.add(new GroupData().withName(name).withId(id));
         }
         return groups;
     }
