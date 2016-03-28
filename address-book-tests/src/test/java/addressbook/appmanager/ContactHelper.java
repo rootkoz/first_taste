@@ -86,9 +86,12 @@ public class ContactHelper extends HelperBase {
             List<WebElement> contactBasic = element.findElements(By.tagName("td"));
             String name = contactBasic.get(2).getText();
             String lastName = contactBasic.get(1).getText();
+            String allPhones = contactBasic.get(5).getText();
+
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
-            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName);
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName).
+                    withAllPhones(allPhones);
             contacts.add(contact);
         }
         return contacts;
@@ -96,5 +99,17 @@ public class ContactHelper extends HelperBase {
 
     public int count() {
         return wd.findElements(By.xpath("//tr[@name='entry']")).size();
+    }
+
+    public ContactData infoFromEditForm(ContactData contact) {
+        editContact(contact.getId());
+        String name = wd.findElement(By.name("firstname")).getAttribute("value");
+        String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+        String homePhone = wd.findElement(By.name("home")).getAttribute("value");
+        String mobilePhone = wd.findElement(By.name("mobile")).getAttribute("value");
+        String workPhone = wd.findElement(By.name("work")).getAttribute("value");
+        wd.navigate().back();
+        return new ContactData().withName(name).withLastName(lastName).
+                withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone);
     }
 }

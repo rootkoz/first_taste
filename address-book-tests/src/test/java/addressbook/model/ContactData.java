@@ -1,13 +1,32 @@
 package addressbook.model;
 
 public class ContactData {
-    private  String name;
-    private  String lastName;
-    private  String nickName;
-    private  String company;
-    private  String notes;
+    private String name;
+    private String lastName;
+    private String nickName;
+    private String company;
+    private String notes;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
+    private String allPhones;
     private int id = Integer.MAX_VALUE;
 
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
+    }
 
     public String getName() {
         return name;
@@ -33,6 +52,26 @@ public class ContactData {
         return id;
     }
 
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+
+    }
+
+    public ContactData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilePhone) {
+        this.mobilePhone = mobilePhone;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
+        return this;
+    }
 
     public ContactData withName(String name) {
         this.name = name;
@@ -41,6 +80,26 @@ public class ContactData {
 
     public ContactData withLastName(String lastName) {
         this.lastName = lastName;
+        return this;
+    }
+
+    public ContactData withNickName(String nickName) {
+        this.nickName = nickName;
+        return this;
+    }
+
+    public ContactData withCompany(String company) {
+        this.company = company;
+        return this;
+    }
+
+    public ContactData withNotes(String notes) {
+        this.notes = notes;
+        return this;
+    }
+
+    public ContactData withId(int id) {
+        this.id = id;
         return this;
     }
 
@@ -65,26 +124,6 @@ public class ContactData {
         return result;
     }
 
-    public ContactData withNickName(String nickName) {
-        this.nickName = nickName;
-        return this;
-    }
-
-    public ContactData withCompany(String company) {
-        this.company = company;
-        return this;
-    }
-
-    public ContactData withNotes(String notes) {
-        this.notes = notes;
-        return this;
-    }
-
-    public ContactData withId(int id) {
-        this.id = id;
-        return this;
-    }
-
     @Override
     public String toString() {
         return "ContactData{" +
@@ -93,6 +132,7 @@ public class ContactData {
                 ", lastName='" + lastName + '\'' +
                 '}';
     }
+
 
 }
 
