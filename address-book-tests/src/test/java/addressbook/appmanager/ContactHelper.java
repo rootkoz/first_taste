@@ -17,6 +17,8 @@ import java.util.List;
 public class ContactHelper extends HelperBase {
 
 
+    public Contacts contactCache = null;
+
     public ContactHelper(WebDriver wd) {
         super(wd);
     }
@@ -41,7 +43,6 @@ public class ContactHelper extends HelperBase {
         wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
     }
 
-
     public void deleteSelectedContact() {
         click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
         accept();
@@ -51,7 +52,6 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector("[href='edit.php?id=" + id + "'"));
     }
 
-
     public boolean contactExists() {
         return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
@@ -59,27 +59,27 @@ public class ContactHelper extends HelperBase {
     public void createContact(ContactData contact) {
         fillContactForm(contact);
         submitContactCreation();
-    }
-
-    public void create(ContactData contactDummy) {
-        fillContactForm(contactDummy);
-        submitContactCreation();
+        contactCache = null;
     }
 
     public void modify(ContactData contact) {
         editContact(contact.getId());
         fillContactForm(contact);
         updateContact();
+        contactCache = null;
     }
-
 
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContact();
+        contactCache = null;
     }
 
 
     public Contacts all() {
+        if (contactCache != null) {
+            return new Contacts(contactCache);
+        }
         Contacts contacts = new Contacts();
         List<WebElement> elements = wd.findElements(By.xpath("//table[@id='maintable']//tr[@name='entry']"));
         for (WebElement element : elements) {
@@ -94,4 +94,7 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
+    public int count() {
+        return wd.findElements(By.xpath("//tr[@name='entry']")).size();
+    }
 }

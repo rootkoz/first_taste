@@ -34,12 +34,10 @@ public class GroupEdition extends TestBase {
         GroupData groupData = new GroupData().withId(modifyGroup.getId()).withHeader("Edited").withName("backspins").withFooter("o-O");
 
         app.group().modify(groupData);
-
         app.goTo().groupPage();
 
+        assertThat(app.group().count(), equalTo(before.size()));
         Groups after = app.group().all();
-        assertEquals(before.size(), after.size());
-
         assertThat(after, equalTo(before.without(modifyGroup).withAdded(groupData)));
     }
 

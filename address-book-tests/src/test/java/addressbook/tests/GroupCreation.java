@@ -20,10 +20,24 @@ public class GroupCreation extends TestBase {
         app.group().create(groupDummy);
         app.goTo().groupPage();
 
-        Groups after = app.group().all();
-        assertThat(after.size(), equalTo(before.size()+1));
+        assertThat(app.group().count(), equalTo(before.size() + 1));
 
+        Groups after = app.group().all();
         assertThat(after, equalTo
                 (before.withAdded(groupDummy.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    }
+
+    @Test(enabled = false)
+    public void testBadGroupCreation() {
+        app.goTo().groupPage();
+        Groups before = app.group().all();
+
+        app.group().create(groupDummy.withName("ba'D"));
+        app.goTo().groupPage();
+
+        assertThat(app.group().count(), equalTo(before.size()));
+
+        Groups after = app.group().all();
+        assertThat(after, equalTo(before));
     }
 }

@@ -29,6 +29,8 @@ public class ContactEdition extends TestBase {
         app.contact().modify(editContact);
         app.goTo().homePage();
 
+        assertThat(app.contact().count(), equalTo(before.size()));
+
         Contacts after = app.contact().all();
         ContactData contactData = contactDummy.withId(editContact.getId());
 

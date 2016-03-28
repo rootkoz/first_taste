@@ -19,14 +19,27 @@ public class ContactCreation extends TestBase {
         Contacts before = app.contact().all();
 
         app.goTo().newContactPage();
-        app.contact().create(contactDummy);
+        app.contact().createContact(contactDummy);
         app.goTo().homePage();
+
+        Assert.assertEquals(app.contact().count(), before.size() + 1);
         Contacts after = app.contact().all();
-
-        Assert.assertEquals(after.size(), before.size() + 1);
-
         assertThat(after, equalTo
                 (before.withAdded(contactDummy.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+    }
+
+    @Test(enabled = false)
+    public void testBadContactCreation() {
+        Contacts before = app.contact().all();
+
+        app.goTo().newContactPage();
+        app.contact().createContact(contactDummy.withName("1562"));
+        app.goTo().homePage();
+
+        Assert.assertEquals(app.contact().count(), before.size());
+
+        Contacts after = app.contact().all();
+        assertThat(after, equalTo(before));
     }
 
 
