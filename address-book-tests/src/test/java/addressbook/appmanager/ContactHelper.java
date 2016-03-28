@@ -87,11 +87,13 @@ public class ContactHelper extends HelperBase {
             String name = contactBasic.get(2).getText();
             String lastName = contactBasic.get(1).getText();
             String allPhones = contactBasic.get(5).getText();
+            String allEmails = contactBasic.get(4).getText();
+            String address = contactBasic.get(3).getText();
 
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
             ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName).
-                    withAllPhones(allPhones);
+                    withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address);
             contacts.add(contact);
         }
         return contacts;
@@ -105,11 +107,21 @@ public class ContactHelper extends HelperBase {
         editContact(contact.getId());
         String name = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastName = wd.findElement(By.name("lastname")).getAttribute("value");
+
         String homePhone = wd.findElement(By.name("home")).getAttribute("value");
         String mobilePhone = wd.findElement(By.name("mobile")).getAttribute("value");
         String workPhone = wd.findElement(By.name("work")).getAttribute("value");
+
+        String email = wd.findElement(By.name("email")).getAttribute("value");
+        String email2 = wd.findElement(By.name("email2")).getAttribute("value");
+        String email3 = wd.findElement(By.name("email3")).getAttribute("value");
+
+        String address = wd.findElement(By.name("address")).getText();
+
         wd.navigate().back();
         return new ContactData().withName(name).withLastName(lastName).
-                withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone);
+                withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone)
+                .withEmail(email).withEmail2(email2).withEmail3(email3)
+                .withAddress(address);
     }
 }

@@ -4,7 +4,6 @@ import addressbook.model.ContactData;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -16,7 +15,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 
 
-public class ContactiPhoneTest extends TestBase
+public class ContactPhoneTest extends TestBase
 {
     @Test
 
@@ -30,7 +29,7 @@ public class ContactiPhoneTest extends TestBase
     private String mergePhones(ContactData contact) {
         return Arrays.asList(contact.getHomePhone(),contact.getMobilePhone(), contact.getWorkPhone())
                 .stream().filter((s -> ! s.equals("")))
-                .map(ContactiPhoneTest::cleaned)
+                .map(ContactPhoneTest::cleaned)
                 .collect(Collectors.joining("\n"));
     }
 
