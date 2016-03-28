@@ -2,6 +2,8 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.GroupData;
+import addressbook.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -24,16 +26,19 @@ public class ContactEdition extends TestBase {
     @Test
     public void testContactEdition() {
         Contacts before = app.contact().all();
-        ContactData editContact = before.iterator().next();
+        ContactData modifiedContact = before.iterator().next();
 
-        app.contact().modify(editContact);
+        ContactData contactData = new ContactData().
+                withId(modifiedContact.getId()).withName("EediteD").withLastName("e-Lname").withCompany("e-co").withNickName("e-nick").withNotes("e-notes");
+
+        app.contact().modify(contactData);
         app.goTo().homePage();
 
         assertThat(app.contact().count(), equalTo(before.size()));
 
         Contacts after = app.contact().all();
-        ContactData contactData = contactDummy.withId(editContact.getId());
 
-        assertThat(after, equalTo(before.without(editContact).withAdded(contactData)));
+        assertThat(after, equalTo
+                (before.without(modifiedContact).withAdded(contactData)));
     }
 }

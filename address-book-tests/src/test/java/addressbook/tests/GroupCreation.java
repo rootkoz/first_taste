@@ -17,7 +17,7 @@ public class GroupCreation extends TestBase {
         app.goTo().groupPage();
         Groups before = app.group().all();
 
-        app.group().create(groupDummy);
+        app.group().create(groupDummy.withName("G00D"));
         app.goTo().groupPage();
 
         assertThat(app.group().count(), equalTo(before.size() + 1));
@@ -27,7 +27,7 @@ public class GroupCreation extends TestBase {
                 (before.withAdded(groupDummy.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
     }
 
-    @Test(enabled = false)
+    @Test
     public void testBadGroupCreation() {
         app.goTo().groupPage();
         Groups before = app.group().all();

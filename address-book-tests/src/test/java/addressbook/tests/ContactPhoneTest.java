@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -17,8 +18,14 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactPhoneTest extends TestBase
 {
-    @Test
 
+    @BeforeMethod
+    public void preConditions() {
+        createContactIfNotExists(contactDummy);
+    }
+
+
+    @Test
     public void testContactPhone(){
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();
@@ -33,7 +40,7 @@ public class ContactPhoneTest extends TestBase
                 .collect(Collectors.joining("\n"));
     }
 
-    public static String cleaned(String phone){
-        return phone.replaceAll("\\s-","").replaceAll("[-()]","");
+    public static String cleaned(String phone) {
+        return phone.replaceAll("\\s+", "").replaceAll("[-()]", "");
     }
 }

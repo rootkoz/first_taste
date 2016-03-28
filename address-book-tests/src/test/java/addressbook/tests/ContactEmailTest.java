@@ -1,6 +1,7 @@
 package addressbook.tests;
 
 import addressbook.model.ContactData;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import java.util.Arrays;
@@ -17,12 +18,18 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactEmailTest extends TestBase
 {
-    @Test
 
+    @BeforeMethod
+    public void preConditions() {
+        createContactIfNotExists(contactDummy);
+    }
+
+    @Test
     public void testContactEmail(){
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
     }
 
@@ -34,6 +41,6 @@ public class ContactEmailTest extends TestBase
     }
 
     public static String cleaned(String email){
-        return email.replaceAll("\\s+"," ");
+        return email.replaceAll("\\s+", " ").replaceAll(" $","").replaceAll("^ ","");
     }
 }

@@ -29,6 +29,11 @@ public class ContactHelper extends HelperBase {
         type(By.name("nickname"), contactData.getNickName());
         type(By.name("company"), contactData.getCompany());
         type(By.name("notes"), contactData.getNotes());
+        type(By.name("address"),contactData.getAddress());
+        type(By.name("email"),contactData.getEmail());
+        type(By.name("email2"),contactData.getEmail2());
+        type(By.name("home"),contactData.getHomePhone());
+        type(By.name("work"),contactData.getWorkPhone());
     }
 
     public void submitContactCreation() {
@@ -92,8 +97,10 @@ public class ContactHelper extends HelperBase {
 
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
-            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName).
-                    withAllPhones(allPhones).withAllEmails(allEmails).withAddress(address);
+            ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
+                    .withAllPhones(allPhones)
+                    .withAllEmails(allEmails)
+                    .withAddress(address);
             contacts.add(contact);
         }
         return contacts;

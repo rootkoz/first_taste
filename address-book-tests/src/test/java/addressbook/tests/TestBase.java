@@ -18,7 +18,10 @@ public class TestBase {
     protected static final AppManager app = new AppManager(BrowserType.FIREFOX);
     protected GroupData groupDummy = new GroupData().withName("Zorr0").withHeader("backspinS").withFooter("bod");
     protected ContactData contactDummy = new ContactData().
-        withName("EediteD").withLastName("e-Lname").withCompany("e-co").withNickName("e-nick").withNotes("e-notes");
+            withName("Dummy").withLastName("dummyLN").withCompany("dummyCo").withNickName("nick").withNotes("notes")
+            .withEmail("main e-mail@so").withEmail2("   3space   2after  ")
+            .withAddress("Zirororo 89-09, \n call baY area  ")
+            .withHomePhone("02-  02").withWorkPhone("  +7 (911) 614-1222");
 
     @BeforeSuite
     public void setUp() throws Exception {

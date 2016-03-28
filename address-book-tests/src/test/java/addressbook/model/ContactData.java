@@ -15,7 +15,7 @@ public class ContactData {
     private String email3;
     private String allEmails;
 
-    private int id = Integer.MAX_VALUE;
+    private int id;
 
     private String address;
 
