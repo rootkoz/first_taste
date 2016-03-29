@@ -14,10 +14,15 @@ public class ContactData {
     private String email2;
     private String email3;
     private String allEmails;
+    private String info;
 
     private int id;
 
     private String address;
+
+    public String getInfo() {
+        return info;
+    }
 
     public String getAddress() {
         return address;
@@ -77,6 +82,11 @@ public class ContactData {
 
     public int getId() {
         return id;
+    }
+
+    public ContactData withInfo(String info) {
+        this.info = info;
+        return this;
     }
 
     public ContactData withAllEmails(String allEmails) {

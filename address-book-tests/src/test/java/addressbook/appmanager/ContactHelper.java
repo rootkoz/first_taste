@@ -57,6 +57,10 @@ public class ContactHelper extends HelperBase {
         click(By.cssSelector("[href='edit.php?id=" + id + "'"));
     }
 
+    public void infoContact(int id) {
+        click(By.cssSelector("[href='view.php?id=" + id + "'"));
+    }
+
     public boolean contactExists() {
         return isElementPresent(By.xpath("//table[@id='maintable']/tbody/tr[2]/td[8]/a/img"));
     }
@@ -95,6 +99,7 @@ public class ContactHelper extends HelperBase {
             String allEmails = contactBasic.get(4).getText();
             String address = contactBasic.get(3).getText();
 
+
             int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
 
             ContactData contact = new ContactData().withId(id).withName(name).withLastName(lastName)
@@ -104,6 +109,12 @@ public class ContactHelper extends HelperBase {
             contacts.add(contact);
         }
         return contacts;
+    }
+
+    public String info() {
+        WebElement element = wd.findElement(By.xpath("//div[@id='content']"));
+        String info = element.getText();
+        return info;
     }
 
     public int count() {
