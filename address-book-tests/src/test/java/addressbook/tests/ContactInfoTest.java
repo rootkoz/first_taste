@@ -32,7 +32,7 @@ public class ContactInfoTest extends TestBase {
 
         app.contact().infoContact(contact.getId());
 
-        String info = app.contact().info();
+        ContactData info = app.contact().info(contact);
         System.out.println(info+"\n~~~\n");
         String s = mergedInfo(contactInfoFromEditForm);
         System.out.println(s);

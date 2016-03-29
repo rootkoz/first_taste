@@ -6,6 +6,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -111,14 +112,33 @@ public class ContactHelper extends HelperBase {
         return contacts;
     }
 
-    public String info() {
-        WebElement element = wd.findElement(By.xpath("//div[@id='content']"));
-        String info = element.getText();
-        return info;
-    }
+
 
     public int count() {
         return wd.findElements(By.xpath("//tr[@name='entry']")).size();
+    }
+
+
+    public ContactData info(ContactData contact) {
+        WebElement element = wd.findElement(By.xpath("//div[@id='content']"));
+        String[] info = element.getText().split("\n");
+
+
+        String name = info[0].split(" ")[0];
+        String lastName =info[0].split(" ")[1];
+//
+        String homePhone = info[2];
+//        String mobilePhone = ;
+//        String workPhone = ;
+//
+        String email = info[5];
+        String email2 = info[6];
+        String email3 = info[7];
+
+        return new ContactData().withName(name).withLastName(lastName).
+                withHomePhone(homePhone)
+                .withEmail(email).withEmail2(email2).withEmail3(email3);
+
     }
 
     public ContactData infoFromEditForm(ContactData contact) {
