@@ -17,11 +17,18 @@ public class TestBase {
 
     protected static final AppManager app = new AppManager(BrowserType.FIREFOX);
     protected GroupData groupDummy = new GroupData().withName("Zorr0").withHeader("backspinS").withFooter("bod");
-    protected ContactData contactDummy = new ContactData().
+
+    protected ContactData contactB = new ContactData().
             withName("Dummy").withLastName("dummyLN").withCompany("dummyCo").withNickName("nick").withNotes("notes")
             .withEmail("main e-mail@so").withEmail2("   3space   2after  ")
             .withAddress("Zirororo 89-09, \n call baY area  ")
             .withHomePhone("02-  02").withWorkPhone("  +7 (911) 614-1222");
+
+    protected ContactData contactA = new ContactData()
+            .withName("Ivan").withLastName("Petrov")
+            .withAddress("BayArea")
+            .withEmail("IvanP@soviet.uk").withEmail2("ip@ip").withEmail3("ipetrov@com.co")
+            .withHomePhone("02-02").withMobilePhone("+7 (911) 614-1222").withWorkPhone("15010-00");
 
     @BeforeSuite
     public void setUp() throws Exception {

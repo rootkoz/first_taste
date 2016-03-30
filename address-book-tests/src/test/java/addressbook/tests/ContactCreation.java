@@ -19,13 +19,14 @@ public class ContactCreation extends TestBase {
         Contacts before = app.contact().all();
 
         app.goTo().newContactPage();
-        app.contact().createContact(contactDummy.withName("RightNAME"));
+        app.contact().createContact(contactA);
         app.goTo().homePage();
 
         Assert.assertEquals(app.contact().count(), before.size() + 1);
+
         Contacts after = app.contact().all();
         assertThat(after, equalTo
-                (before.withAdded(contactDummy.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+                (before.withAdded(contactA.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
     @Test
@@ -33,7 +34,7 @@ public class ContactCreation extends TestBase {
         Contacts before = app.contact().all();
 
         app.goTo().newContactPage();
-        app.contact().createContact(contactDummy.withName("100562'"));
+        app.contact().createContact(contactB.withName("100562'"));
         app.goTo().homePage();
 
         Assert.assertEquals(app.contact().count(), before.size());

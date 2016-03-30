@@ -20,7 +20,7 @@ public class ContactDeletion extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
-        createContactIfNotExists(contactDummy);
+        createContactIfNotExists(contactA);
     }
 
     @Test

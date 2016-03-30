@@ -21,7 +21,7 @@ public class ContactEmailTest extends TestBase
 
     @BeforeMethod
     public void preConditions() {
-        createContactIfNotExists(contactDummy);
+        createContactIfNotExists(contactB);
     }
 
     @Test
@@ -29,6 +29,9 @@ public class ContactEmailTest extends TestBase
         app.goTo().homePage();
         ContactData contact = app.contact().all().iterator().next();
         ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
+
+        String a =contact.getAllEmails();
+        String b = mergeEmails(contactInfoFromEditForm);
 
         assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
     }

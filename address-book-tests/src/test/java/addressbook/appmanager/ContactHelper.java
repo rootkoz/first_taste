@@ -6,7 +6,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /***
@@ -30,11 +29,13 @@ public class ContactHelper extends HelperBase {
         type(By.name("nickname"), contactData.getNickName());
         type(By.name("company"), contactData.getCompany());
         type(By.name("notes"), contactData.getNotes());
-        type(By.name("address"),contactData.getAddress());
-        type(By.name("email"),contactData.getEmail());
-        type(By.name("email2"),contactData.getEmail2());
-        type(By.name("home"),contactData.getHomePhone());
-        type(By.name("work"),contactData.getWorkPhone());
+        type(By.name("address"), contactData.getAddress());
+        type(By.name("email"), contactData.getEmail());
+        type(By.name("email2"), contactData.getEmail2());
+        type(By.name("email3"), contactData.getEmail3());
+        type(By.name("home"), contactData.getHomePhone());
+        type(By.name("mobile"), contactData.getMobilePhone());
+        type(By.name("work"), contactData.getWorkPhone());
     }
 
     public void submitContactCreation() {
@@ -56,10 +57,6 @@ public class ContactHelper extends HelperBase {
 
     public void editContact(int id) {
         click(By.cssSelector("[href='edit.php?id=" + id + "'"));
-    }
-
-    public void infoContact(int id) {
-        click(By.cssSelector("[href='view.php?id=" + id + "'"));
     }
 
     public boolean contactExists() {
@@ -113,35 +110,39 @@ public class ContactHelper extends HelperBase {
     }
 
 
-
     public int count() {
         return wd.findElements(By.xpath("//tr[@name='entry']")).size();
     }
 
-
-    public ContactData info(ContactData contact) {
+    public String[] getContactDetails(int id) {
+        click(By.cssSelector("[href='view.php?id=" + id + "'"));
         WebElement element = wd.findElement(By.xpath("//div[@id='content']"));
-        String[] info = element.getText().split("\n");
+        return element.getText().split("\n");
+    }
 
+    public ContactData infoFromDetails(int index) {
+
+        String[] info = getContactDetails(index);
 
         String name = info[0].split(" ")[0];
-        String lastName =info[0].split(" ")[1];
-//
-        String homePhone = info[2];
-//        String mobilePhone = ;
-//        String workPhone = ;
-//
-        String email = info[5];
-        String email2 = info[6];
-        String email3 = info[7];
+        String lastName = info[0].split(" ")[1];
+        String address = info[1];
+        String homePhone = info[3].replaceAll("H: ", "");
+        String mobilePhone = info[4].replaceAll("M: ", "");
+        String workPhone = info[5].replaceAll("W: ", "");
+        String email = info[7].split(" ")[0];
+        String email2 = info[8].split(" ")[0];
+        String email3 = info[9].split(" ")[0];
 
-        return new ContactData().withName(name).withLastName(lastName).
-                withHomePhone(homePhone)
+        return new ContactData().withName(name).withLastName(lastName)
+                .withAddress(address)
+                .withHomePhone(homePhone).withMobilePhone(mobilePhone).withWorkPhone(workPhone)
                 .withEmail(email).withEmail2(email2).withEmail3(email3);
 
     }
 
     public ContactData infoFromEditForm(ContactData contact) {
+
         editContact(contact.getId());
         String name = wd.findElement(By.name("firstname")).getAttribute("value");
         String lastName = wd.findElement(By.name("lastname")).getAttribute("value");

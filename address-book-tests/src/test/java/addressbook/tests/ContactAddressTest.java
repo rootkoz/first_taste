@@ -17,7 +17,7 @@ public class ContactAddressTest extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
-        createContactIfNotExists(contactDummy);
+        createContactIfNotExists(contactB);
     }
 
     @Test
