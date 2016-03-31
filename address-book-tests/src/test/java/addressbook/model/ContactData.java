@@ -1,7 +1,11 @@
 package addressbook.model;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
+import com.thoughtworks.xstream.annotations.XStreamOmitField;
+
 import java.io.File;
 
+@XStreamAlias("contact")
 public class ContactData {
     private String name;
     private String lastName;
@@ -19,6 +23,7 @@ public class ContactData {
     private String info;
     private File photo;
 
+    @XStreamOmitField
     private int id;
 
     private String address;

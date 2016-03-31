@@ -23,8 +23,8 @@ public class ContactDetailsInfoTest extends TestBase {
         createContactIfNotExists(contactA);
     }
 
-    @Test
-    public void testContactInfo() {
+    @Test(enabled = false)
+    public void testContactDetailsInfo() {
         app.goTo().homePage();
 
         ContactData contact = app.contact().all().iterator().next();

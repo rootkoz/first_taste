@@ -1,2 +1,44 @@
-Name 5;Footer 5;+7(911) 616-10-5
-Name 6;Footer 6;+7(911) 616-10-6
+<list>
+  <addressbook.model.ContactData>
+    <name>Name 0</name>
+    <lastName>Footer 0</lastName>
+    <mobilePhone>+7(911) 616-10-0</mobilePhone>
+    <id>0</id>
+  </addressbook.model.ContactData>
+  <addressbook.model.ContactData>
+    <name>Name 1</name>
+    <lastName>Footer 1</lastName>
+    <mobilePhone>+7(911) 616-10-1</mobilePhone>
+    <id>0</id>
+  </addressbook.model.ContactData>
+  <addressbook.model.ContactData>
+    <name>Name 2</name>
+    <lastName>Footer 2</lastName>
+    <mobilePhone>+7(911) 616-10-2</mobilePhone>
+    <id>0</id>
+  </addressbook.model.ContactData>
+  <addressbook.model.ContactData>
+    <name>Name 3</name>
+    <lastName>Footer 3</lastName>
+    <mobilePhone>+7(911) 616-10-3</mobilePhone>
+    <id>0</id>
+  </addressbook.model.ContactData>
+  <addressbook.model.ContactData>
+    <name>Name 4</name>
+    <lastName>Footer 4</lastName>
+    <mobilePhone>+7(911) 616-10-4</mobilePhone>
+    <id>0</id>
+  </addressbook.model.ContactData>
+  <addressbook.model.ContactData>
+    <name>Name 5</name>
+    <lastName>Footer 5</lastName>
+    <mobilePhone>+7(911) 616-10-5</mobilePhone>
+    <id>0</id>
+  </addressbook.model.ContactData>
+  <addressbook.model.ContactData>
+    <name>Name 6</name>
+    <lastName>Footer 6</lastName>
+    <mobilePhone>+7(911) 616-10-6</mobilePhone>
+    <id>0</id>
+  </addressbook.model.ContactData>
+</list>
