@@ -7,6 +7,9 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.GroupData;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
@@ -27,19 +30,18 @@ public class ContactCreation extends TestBase {
 
     @DataProvider
     public Iterator<Object[]> validContacts() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.csv")));
+        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
         String line = reader.readLine();
-        String xml = "";
+        String json = "";
 
         while (line != null) {
-            xml += line;
+            json += line;
             line = reader.readLine();
         }
-        XStream xStream = new XStream();
-        xStream.processAnnotations(ContactData.class);
-        List<ContactData> contacts = (List<ContactData>) xStream.fromXML(xml);
-        return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
 
+        Gson gson = new Gson();
+        List<ContactData> contacts = gson.fromJson(json,new TypeToken<List<ContactData>>(){}.getType());
+        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
     @Test(dataProvider = "validContacts")

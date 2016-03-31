@@ -4,6 +4,8 @@ import addressbook.model.ContactData;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.thoughtworks.xstream.XStream;
 
 import java.io.File;
@@ -48,9 +50,19 @@ public class ContactDataGenerator {
             saveAsCSV(contacts, new File(file));
         } else if (format.equals("xml")) {
             saveAsXML(contacts, new File(file));
+        } else if (format.equals("json")) {
+            saveAsJson(contacts, new File(file));
         } else {
             System.out.println("wrong format chosen");
         }
+    }
+
+    private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
+        Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
+        String json = gson.toJson(contacts);
+        Writer writer = new FileWriter(file);
+        writer.write(json);
+        writer.close();
     }
 
     private void saveAsXML(List<ContactData> contacts, File file) throws IOException {
@@ -76,7 +88,7 @@ public class ContactDataGenerator {
         List<ContactData> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             contacts.add(new ContactData()
-                    .withName(String.format("Name %s", i)).withMobilePhone(String.format("+7(911) 616-10-%s", i)).withLastName(String.format("Footer %s", i)));
+                    .withName(String.format("Name %s", i)).withMobilePhone(String.format("+7(911) 616-10-%s", i)).withLastName(String.format("Bansky %s", i)));
         }
         return contacts;
     }

@@ -30,7 +30,7 @@ public class ContactAddressTest extends TestBase {
     }
 
     public static String cleaned(String address) {
-        return address.replaceAll(" +", " ").replaceAll(" +\n", "\n").replaceAll(" $", "".replaceAll("^\\s+",""));
+        return address.replaceAll(" +", " ").replaceAll(" \\n", "\n").replaceAll("\\n ","\n").replaceAll(" $", "");
     }
 
 }
