@@ -1,5 +1,7 @@
 package addressbook.model;
 
+import java.io.File;
+
 public class ContactData {
     private String name;
     private String lastName;
@@ -15,10 +17,16 @@ public class ContactData {
     private String email3;
     private String allEmails;
     private String info;
+    private File photo;
 
     private int id;
 
     private String address;
+
+    public File getPhoto() {
+        return photo;
+    }
+
 
     public String getInfo() {
         return info;
@@ -86,6 +94,11 @@ public class ContactData {
 
     public ContactData withInfo(String info) {
         this.info = info;
+        return this;
+    }
+
+    public ContactData withPhoto(File photo) {
+        this.photo = photo;
         return this;
     }
 
