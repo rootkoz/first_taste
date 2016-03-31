@@ -1,6 +1,6 @@
 package addressbook.generators;
 
-import addressbook.model.GroupData;
+import addressbook.model.ContactData;
 import com.beust.jcommander.JCommander;
 import com.beust.jcommander.Parameter;
 import com.beust.jcommander.ParameterException;
@@ -18,16 +18,15 @@ import java.util.List;
  */
 
 
-public class GroupDataGenerator {
-    @Parameter(names = "-c", description = "groups count" )
+public class ContactDataGenerator {
+    @Parameter(names = "-c", description = "contacts count" )
     public int count;
 
     @Parameter(names = "-f", description = "target file")
     public String file;
 
-
     public static void main(String[] args) throws IOException {
-        GroupDataGenerator generator = new GroupDataGenerator();
+        ContactDataGenerator generator = new ContactDataGenerator();
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
@@ -39,25 +38,25 @@ public class GroupDataGenerator {
     }
 
     private void run() throws IOException {
-        List<GroupData> groups = generateGroups(count);
-        save(groups, new File(file));
+        List<ContactData> contacts = generateContacts(count);
+        save(contacts, new File(file));
     }
 
-    private void save(List<GroupData> groups, File file) throws IOException {
+    private void save(List<ContactData> contacts, File file) throws IOException {
         Writer writer = new FileWriter(file);
 
-        for(GroupData group : groups){
-            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(),group.getFooter()));
+        for(ContactData contact : contacts){
+            writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getLastName(),contact.getMobilePhone()));
         }
         writer.close();
     }
 
-    private List<GroupData> generateGroups(int count) {
-        List<GroupData> groups = new ArrayList<>();
+    private List<ContactData> generateContacts(int count) {
+        List<ContactData> contacts = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            groups.add(new GroupData()
-                    .withName(String.format("Name %s", i)).withHeader(String.format("Header %s", i)).withFooter(String.format("Footer %s", i)));
+            contacts.add(new ContactData()
+                    .withName(String.format("Name %s", i)).withMobilePhone(String.format("+7(911) 616-10-%s", i)).withLastName(String.format("Footer %s", i)));
         }
-        return groups;
+        return contacts;
     }
 }
