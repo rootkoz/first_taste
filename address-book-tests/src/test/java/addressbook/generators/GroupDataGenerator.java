@@ -22,7 +22,7 @@ import java.util.List;
 
 
 public class GroupDataGenerator {
-    @Parameter(names = "-c", description = "groups count" )
+    @Parameter(names = "-c", description = "groups count")
     public int count;
 
     @Parameter(names = "-f", description = "target file")
@@ -36,7 +36,7 @@ public class GroupDataGenerator {
         JCommander jCommander = new JCommander(generator);
         try {
             jCommander.parse(args);
-        } catch (ParameterException ex){
+        } catch (ParameterException ex) {
             jCommander.usage();
             return;
         }
@@ -45,7 +45,7 @@ public class GroupDataGenerator {
 
     private void run() throws IOException {
         List<GroupData> groups = generateGroups(count);
-        if (format.equals("csv")){
+        if (format.equals("csv")) {
             saveAsCSV(groups, new File(file));
         } else if (format.equals("xml")) {
             saveAsXML(groups, new File(file));
@@ -59,28 +59,29 @@ public class GroupDataGenerator {
     private void saveAsJson(List<GroupData> groups, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
     private void saveAsXML(List<GroupData> groups, File file) throws IOException {
         XStream xStream = new XStream();
         xStream.processAnnotations(GroupData.class);
         String xml = xStream.toXML(groups);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
     }
 
 
     private void saveAsCSV(List<GroupData> groups, File file) throws IOException {
-        Writer writer = new FileWriter(file);
-
-        for(GroupData group : groups){
-            writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(),group.getFooter()));
+        try (Writer writer = new FileWriter(file)) {
+            for (GroupData group : groups) {
+                writer.write(String.format("%s;%s;%s\n", group.getName(), group.getHeader(), group.getFooter()));
+            }
         }
-        writer.close();
+
     }
 
     private List<GroupData> generateGroups(int count) {

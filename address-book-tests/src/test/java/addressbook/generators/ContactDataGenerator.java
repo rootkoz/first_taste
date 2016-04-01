@@ -60,28 +60,32 @@ public class ContactDataGenerator {
     private void saveAsJson(List<ContactData> contacts, File file) throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().excludeFieldsWithoutExposeAnnotation().create();
         String json = gson.toJson(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(json);
-        writer.close();
+
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(json);
+        }
     }
 
     private void saveAsXML(List<ContactData> contacts, File file) throws IOException {
         XStream xStream = new XStream();
         xStream.processAnnotations(ContactData.class);
         String xml = xStream.toXML(contacts);
-        Writer writer = new FileWriter(file);
-        writer.write(xml);
-        writer.close();
+
+        try (Writer writer = new FileWriter(file)) {
+            writer.write(xml);
+        }
     }
 
 
     private void saveAsCSV(List<ContactData> contacts, File file) throws IOException {
-        Writer writer = new FileWriter(file);
 
-        for (ContactData contact : contacts) {
-            writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getLastName(), contact.getMobilePhone()));
+        try(Writer writer = new FileWriter(file)) {
+
+            for (ContactData contact : contacts) {
+                writer.write(String.format("%s;%s;%s\n", contact.getName(), contact.getLastName(), contact.getMobilePhone()));
+            }
         }
-        writer.close();
+
     }
 
     private List<ContactData> generateContacts(int count) {

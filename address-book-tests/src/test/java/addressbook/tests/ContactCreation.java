@@ -29,22 +29,40 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactCreation extends TestBase {
 
     @DataProvider
-    public Iterator<Object[]> validContacts() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")));
-        String line = reader.readLine();
-        String json = "";
+    public Iterator<Object[]> validContactsFromJson() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.json")))) {
+            String line = reader.readLine();
+            String json = "";
 
-        while (line != null) {
-            json += line;
-            line = reader.readLine();
+            while (line != null) {
+                json += line;
+                line = reader.readLine();
+            }
+
+            Gson gson = new Gson();
+            List<ContactData> contacts = gson.fromJson(json, new TypeToken<List<ContactData>>() {
+            }.getType());
+            return contacts.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
         }
-
-        Gson gson = new Gson();
-        List<ContactData> contacts = gson.fromJson(json,new TypeToken<List<ContactData>>(){}.getType());
-        return contacts.stream().map((g) -> new Object[] {g}).collect(Collectors.toList()).iterator();
     }
 
-    @Test(dataProvider = "validContacts")
+    @DataProvider
+    public Iterator<Object[]> validContactsFromXML() throws IOException {
+        try (BufferedReader reader = new BufferedReader(new FileReader(new File("src/test/resources/contacts.xml")))) {
+            String line = reader.readLine();
+            String xml = "";
+            while (line != null) {
+                xml += line;
+                line = reader.readLine();
+            }
+            XStream xStream = new XStream();
+            xStream.processAnnotations(ContactData.class);
+            List<ContactData> contacts = (List<ContactData>) xStream.fromXML(xml);
+            return contacts.stream().map((c) -> new Object[]{c}).collect(Collectors.toList()).iterator();
+        }
+    }
+
+    @Test(dataProvider = "validContactsFromXML")
     public void testContactCreation(ContactData contact) {
         Contacts before = app.contact().all();
         app.goTo().newContactPage();
@@ -59,7 +77,7 @@ public class ContactCreation extends TestBase {
                 (before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
     }
 
-    @Test
+    @Test(enabled = false)
     public void testBadContactCreation() {
         Contacts before = app.contact().all();
 

@@ -2,14 +2,28 @@ apply plugin: 'java'
 apply plugin: 'application'
 
 repositories {
- mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
- compile 'org.testng:testng:6.9.10'
- compile 'org.seleniumhq.selenium:selenium-server:2.52.0'
- compile 'org.hamcrest:java-hamcrest:2.0.0.0'
- compile 'com.beust:jcommander:1.48'
- compile 'com.thoughtworks.xstream:xstream:1.4.9'
- compile 'com.google.code.gson:gson:2.6.2'
+    compile 'org.testng:testng:6.9.10'
+    compile 'org.seleniumhq.selenium:selenium-server:2.52.0'
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+    compile 'com.beust:jcommander:1.48'
+    compile 'com.thoughtworks.xstream:xstream:1.4.9'
+    compile 'com.google.code.gson:gson:2.6.2'
+}
+
+
+task testGroups(type: Test) {
+    useTestNG{
+        suites 'src/test/resources/testng-groups.xml'
+    }
+}
+
+task testContacts(type: Test) {
+    useTestNG{
+        suites 'src/test/resources/testng-contacts.xml'
+    }
+
 }
