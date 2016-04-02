@@ -6,6 +6,8 @@ package addressbook.tests;
 
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -13,7 +15,6 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupDeletion extends TestBase {
-
     @BeforeMethod
     public void preConditions() {
         app.goTo().groupPage();

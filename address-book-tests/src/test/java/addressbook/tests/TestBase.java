@@ -4,8 +4,15 @@ import addressbook.appmanager.AppManager;
 import addressbook.model.ContactData;
 import addressbook.model.GroupData;
 import org.openqa.selenium.remote.BrowserType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
+import java.lang.reflect.*;
+import java.util.Arrays;
+
 
 /***
  * by rootkoz
@@ -14,6 +21,7 @@ import org.testng.annotations.BeforeSuite;
 
 
 public class TestBase {
+    Logger logger = LoggerFactory.getLogger(TestBase.class);
 
     protected static final AppManager app = new AppManager(System.getProperty("browser", BrowserType.CHROME));
 
@@ -42,6 +50,17 @@ public class TestBase {
             app.goTo().groupPage();
         }
     }
+//
+    @BeforeMethod
+    public void logTestStart(Method m, Object[] p){
+        logger.info(m.getName()+ " started with parameters:"+ Arrays.asList(p));
+    }
+
+    @AfterMethod(alwaysRun = true)
+    public void logTestEnd(Method m){
+        logger.info(m.getName()+ " stoped");
+    }
+
 
     protected void createContactIfNotExists(ContactData contactData) {
         if (!app.contact().contactExists()) {

@@ -7,7 +7,6 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
-import addressbook.model.GroupData;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
@@ -27,6 +26,7 @@ import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactCreation extends TestBase {
+
 
     @DataProvider
     public Iterator<Object[]> validContactsFromJson() throws IOException {
