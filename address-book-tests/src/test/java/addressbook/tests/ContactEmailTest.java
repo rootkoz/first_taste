@@ -21,7 +21,7 @@ public class ContactEmailTest extends TestBase
 
     @BeforeMethod
     public void preConditions() {
-        createContactIfNotExists(contactB);
+        createContactIfNotExists(contactA);
     }
 
     @Test

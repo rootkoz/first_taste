@@ -82,7 +82,7 @@ public class ContactCreation extends TestBase {
         Contacts before = app.contact().all();
 
         app.goTo().newContactPage();
-        app.contact().createContact(contactB.withName("100562'"));
+        app.contact().createContact(contactA.withName("100562'"));
         app.goTo().homePage();
 
         Assert.assertEquals(app.contact().count(), before.size());

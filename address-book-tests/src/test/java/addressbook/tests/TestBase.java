@@ -15,14 +15,10 @@ import org.testng.annotations.BeforeSuite;
 
 public class TestBase {
 
-    protected static final AppManager app = new AppManager(BrowserType.FIREFOX);
+    protected static final AppManager app = new AppManager(System.getProperty("browser", BrowserType.CHROME));
+
     protected GroupData groupDummy = new GroupData().withName("Zorr0").withHeader("backspinS").withFooter("bod");
 
-    protected ContactData contactB = new ContactData().
-            withName("Dummy").withLastName("dummyLN").withCompany("dummyCo").withNickName("nick").withNotes("notes")
-            .withEmail("main e-mail@so").withEmail2("   3space   2after  ")
-            .withAddress("Zirororo 89-09, \n call baY area  ")
-            .withHomePhone("02-  02").withWorkPhone("  +7 (911) 614-1222");
 
     protected ContactData contactA = new ContactData()
             .withName("Ivan").withLastName("Petrov")
