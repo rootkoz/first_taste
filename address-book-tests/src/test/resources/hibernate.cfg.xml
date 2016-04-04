@@ -32,7 +32,7 @@
         </property>
 
         <!-- List of XML mapping files -->
-        <mapping resource="addressbook.model.GroupData"/>
+        <mapping class="addressbook.model.GroupData"/>
 
     </session-factory>
 </hibernate-configuration>
