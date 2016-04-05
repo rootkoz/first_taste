@@ -46,9 +46,6 @@ public class ContactData {
     @Transient
     private String info;
 
-    @Column(name = "photo")
-    private String photo;
-
     @XStreamOmitField
     @Id
     @Column(name = "id")
@@ -56,8 +53,15 @@ public class ContactData {
 
     private String address;
 
+    @Column(name = "photo")
+    private String photo;
+
     public File getPhoto() {
         return new File(photo);
+    }
+    public ContactData withPhoto(File photo) {
+        this.photo = photo.getPath();
+        return this;
     }
 
 
@@ -127,11 +131,6 @@ public class ContactData {
 
     public ContactData withInfo(String info) {
         this.info = info;
-        return this;
-    }
-
-    public ContactData withPhoto(File photo) {
-        this.photo = photo.getPath();
         return this;
     }
 

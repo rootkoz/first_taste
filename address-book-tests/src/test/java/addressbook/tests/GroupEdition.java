@@ -6,40 +6,37 @@ package addressbook.tests;
 
 import addressbook.model.GroupData;
 import addressbook.model.Groups;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import java.util.Set;
-
-import static org.hamcrest.CoreMatchers.*;
-import static org.hamcrest.MatcherAssert.*;
-import static org.testng.Assert.assertEquals;
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class GroupEdition extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
-        app.goTo().groupPage();
-        createGroupIfNotExist(groupDummy);
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            createGroupIfNotExist(groupDummy);
+        }
     }
 
-    @Test
-    public void testGroupEdition() {
-        Groups before = app.group().all();
-        GroupData modifyGroup = before.iterator().next();
+        @Test
+        public void testGroupEdition () {
+            Groups before = app.db().groups();
+            GroupData modifyGroup = before.iterator().next();
 
-        GroupData groupData = new GroupData().withId(modifyGroup.getId()).withHeader("Edited").withName("backspins").withFooter("o-O");
+            GroupData groupData = new GroupData().withId(modifyGroup.getId()).withHeader("Edited").withName("backspins").withFooter("o-O");
 
-        app.group().modify(groupData);
-        app.goTo().groupPage();
+            app.goTo().groupPage();
+            app.group().modify(groupData);
+            app.goTo().groupPage();
 
-        assertThat(app.group().count(), equalTo(before.size()));
-        Groups after = app.group().all();
-        assertThat(after, equalTo(before.without(modifyGroup).withAdded(groupData)));
+            assertThat(app.group().count(), equalTo(before.size()));
+            Groups after = app.db().groups();
+            assertThat(after, equalTo(before.without(modifyGroup).withAdded(groupData)));
+        }
+
+
     }
-
-
-}
