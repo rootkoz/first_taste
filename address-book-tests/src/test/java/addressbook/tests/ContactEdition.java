@@ -32,7 +32,7 @@ public class ContactEdition extends TestBase {
         File photo = new File("src/test/resources/33small.png");
 
         ContactData contactData = new ContactData().
-                withId(modifiedContact.getId()).withName("EediteD").withLastName("e-Lname").withCompany("e-co").withNickName("e-nick").withNotes("e-notes").withPhoto(photo);
+                withId(modifiedContact.getId()).withName("EediteD").withLastName("e-Lname").withCompany("e-co").withNickName("e-nick").withNotes("e-notes").withPhoto(photo).withMobilePhone("+5 (425) 187)");
 
 
         app.contact().modify(contactData);
@@ -41,9 +41,8 @@ public class ContactEdition extends TestBase {
         assertThat(app.contact().count(), equalTo(before.size()));
 
         Contacts after = app.db().contacts();
-//
-//        assertThat(after, equalTo
-//                (before.without(modifiedContact).withAdded(contactData)));
+        assertThat(after, equalTo
+                (before.without(modifiedContact).withAdded(contactData)));
 
         verifyContactListOnUI();
     }

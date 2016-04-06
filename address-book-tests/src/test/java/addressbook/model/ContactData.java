@@ -220,17 +220,17 @@ public class ContactData {
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
         if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        return allPhones != null ? allPhones.equals(that.allPhones) : that.allPhones == null;
+        return mobilePhone != null ? mobilePhone.equals(that.mobilePhone) : that.mobilePhone == null;
 
     }
 
     @Override
     public String toString() {
         return "ContactData{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
+                "name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", allPhones='" + allPhones + '\'' +
+                ", mobilePhone='" + mobilePhone + '\'' +
+                ", id=" + id +
                 '}';
     }
 
@@ -238,7 +238,7 @@ public class ContactData {
     public int hashCode() {
         int result = name != null ? name.hashCode() : 0;
         result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (allPhones != null ? allPhones.hashCode() : 0);
+        result = 31 * result + (mobilePhone != null ? mobilePhone.hashCode() : 0);
         result = 31 * result + id;
         return result;
     }

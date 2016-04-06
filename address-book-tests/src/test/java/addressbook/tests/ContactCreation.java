@@ -64,7 +64,8 @@ public class ContactCreation extends TestBase {
 
     @Test(dataProvider = "validContactsFromXML")
     public void testContactCreation(ContactData contact) {
-        Contacts before = app.contact().all();
+        Contacts before = app.db().contacts();
+
         app.goTo().newContactPage();
         File photo = new File("src/test/resources/33small.png");
         app.contact().createContact(contact.withPhoto(photo));
@@ -72,9 +73,12 @@ public class ContactCreation extends TestBase {
 
         Assert.assertEquals(app.contact().count(), before.size() + 1);
 
-        Contacts after = app.contact().all();
+        Contacts after = app.db().contacts();
+
         assertThat(after, equalTo
                 (before.withAdded(contact.withId(after.stream().mapToInt((c) -> c.getId()).max().getAsInt()))));
+
+        verifyContactListOnUI();
     }
 
     @Test(enabled = false)
@@ -89,6 +93,8 @@ public class ContactCreation extends TestBase {
 
         Contacts after = app.contact().all();
         assertThat(after, equalTo(before));
+
+        verifyContactListOnUI();
     }
 
 }
