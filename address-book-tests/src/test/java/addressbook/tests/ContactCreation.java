@@ -7,6 +7,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.Groups;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.thoughtworks.xstream.XStream;
@@ -65,10 +66,12 @@ public class ContactCreation extends TestBase {
     @Test(dataProvider = "validContactsFromXML")
     public void testContactCreation(ContactData contact) {
         Contacts before = app.db().contacts();
+        Groups groups = app.db().groups();
 
         app.goTo().newContactPage();
         File photo = new File("src/test/resources/33small.png");
-        app.contact().createContact(contact.withPhoto(photo));
+
+        app.contact().createContact(contact.withPhoto(photo).inGroup(groups.iterator().next()));
         app.goTo().homePage();
 
         Assert.assertEquals(app.contact().count(), before.size() + 1);
