@@ -13,6 +13,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
+import java.io.File;
 import java.lang.reflect.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -39,7 +40,9 @@ public class TestBase {
             .withName("Ivan").withLastName("Petrov")
             .withAddress("BayArea")
             .withEmail("IvanP@soviet.uk").withEmail2("ip@ip").withEmail3("ipetrov@com.co")
-            .withHomePhone("02-02").withMobilePhone("+7 (911) 614-1222").withWorkPhone("15010-00");
+            .withHomePhone("02-02").withMobilePhone("+7 (911) 614-1222").withWorkPhone("15010-00")
+            .withPhoto(new File("src/test/resources/33small.png"));
+
 
     @BeforeSuite
     public void setUp() throws Exception {
@@ -50,6 +53,18 @@ public class TestBase {
     public void tearDown() {
         app.stop();
     }
+
+
+    protected void createContactIfNotExists(ContactData contactData) {
+        Groups groups = app.db().groups();
+        if (!app.contact().contactExists()) {
+//            app.contact().list().size() == 0) {  // doubtfully
+            app.goTo().newContactPage();
+            app.contact().createContact(contactData);
+            app.goTo().homePage();
+        }
+    }
+
 
     protected void createGroupIfNotExist(GroupData group) {
         if (app.group().all().size() == 0) {
@@ -70,14 +85,6 @@ public class TestBase {
     }
 
 
-    protected void createContactIfNotExists(ContactData contactData) {
-        if (!app.contact().contactExists()) {
-//            app.contact().list().size() == 0) {  // doubtfully
-            app.goTo().newContactPage();
-            app.contact().createContact(contactData);
-            app.goTo().homePage();
-        }
-    }
 
     public void verifyGroupListOnUI() {
         if (Boolean.getBoolean("verifyUI")) {

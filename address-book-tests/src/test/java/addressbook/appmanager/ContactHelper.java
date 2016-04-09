@@ -39,6 +39,7 @@ public class ContactHelper extends HelperBase {
         type(By.name("mobile"), contactData.getMobilePhone());
         type(By.name("work"), contactData.getWorkPhone());
         attach(By.name("photo"), contactData.getPhoto());
+
         if (creation) {
             if (contactData.getGroups().size() > 0){
                 Assert.assertTrue(contactData.getGroups().size() == 1);

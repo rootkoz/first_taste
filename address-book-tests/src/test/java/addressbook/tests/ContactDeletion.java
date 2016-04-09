@@ -20,7 +20,7 @@ public class ContactDeletion extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
-        createContactIfNotExists(contactA);
+        createContactIfNotExists(contactA.inGroup(app.db().groups().iterator().next()));
     }
 
     @Test

@@ -2,6 +2,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
+import addressbook.model.Groups;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -21,7 +22,7 @@ public class ContactEdition extends TestBase {
     @BeforeMethod
     public void preConditions() {
         if (app.db().contacts().size() == 0) {
-            createContactIfNotExists(contactA);
+            createContactIfNotExists(contactA.inGroup(app.db().groups().iterator().next()));
         }
     }
 
