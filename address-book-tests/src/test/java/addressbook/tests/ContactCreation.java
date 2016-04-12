@@ -69,7 +69,7 @@ public class ContactCreation extends TestBase {
         app.goTo().newContactPage();
         File photo = new File("src/test/resources/33small.png");
 
-        app.contact().createContact(contact.withPhoto(photo).inGroup(groups.iterator().next()));
+        app.contact().createNew(contact.withPhoto(photo));//.inGroup(groups.iterator().next()));
         app.goTo().homePage();
 
         Assert.assertEquals(app.contact().count(), before.size() + 1);

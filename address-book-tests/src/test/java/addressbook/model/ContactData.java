@@ -55,6 +55,9 @@ public class ContactData {
 
     private String address;
 
+    @Transient
+    private String addedToGroup;
+
     @Column(name = "photo")
     private String photo;
 
@@ -75,6 +78,10 @@ public class ContactData {
         return this;
     }
 
+
+    public String getAddedToGroup() {
+        return addedToGroup;
+    }
 
     public String getInfo() {
         return info;
@@ -226,6 +233,9 @@ public class ContactData {
         return this;
     }
 
+    public void setAddedToGroup(String addedToGroup) {
+        this.addedToGroup = addedToGroup;
+    }
 
     @Override
     public boolean equals(Object o) {

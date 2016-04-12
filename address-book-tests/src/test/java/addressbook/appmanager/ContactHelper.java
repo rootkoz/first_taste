@@ -69,9 +69,19 @@ public class ContactHelper extends HelperBase {
         accept();
     }
 
-    private void addSelectedContact() {
+    private String addContactToFirstGroup() {
+        String group = wd.findElement(By.xpath("//div[4]/select/option[1]")).getText();
         click(By.name("add"));
+        return group;
     }
+
+    public void addToGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        contact.setAddedToGroup(addContactToFirstGroup());
+
+        contactCache = null;
+    }
+
 
     public void editContact(int id) {
         click(By.cssSelector("[href='edit.php?id=" + id + "'"));
@@ -106,12 +116,6 @@ public class ContactHelper extends HelperBase {
         contactCache = null;
     }
 
-    public void addToGroup(ContactData contact) {
-        selectContactById(contact.getId());
-        addSelectedContact();
-
-        contactCache = null;
-    }
 
 
     public Contacts all() {
