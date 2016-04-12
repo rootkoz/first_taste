@@ -22,7 +22,7 @@ public class ContactEdition extends TestBase {
     @BeforeMethod
     public void preConditions() {
         if (app.db().contacts().size() == 0) {
-            createContactIfNotExists(contactA.inGroup(app.db().groups().iterator().next()));
+            createContactIfNotExists(contactA);
         }
     }
 

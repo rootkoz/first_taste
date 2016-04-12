@@ -41,11 +41,10 @@ public class ContactHelper extends HelperBase {
         attach(By.name("photo"), contactData.getPhoto());
 
         if (creation) {
-            if (contactData.getGroups().size() > 0){
+            if (contactData.getGroups().size() > 0) {
                 Assert.assertTrue(contactData.getGroups().size() == 1);
                 new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
-            }
-            else {
+            } else {
                 Assert.assertFalse(isElementPresent(By.name("new_group")));
             }
         }
@@ -70,6 +69,10 @@ public class ContactHelper extends HelperBase {
         accept();
     }
 
+    private void addSelectedContact() {
+        click(By.name("add"));
+    }
+
     public void editContact(int id) {
         click(By.cssSelector("[href='edit.php?id=" + id + "'"));
     }
@@ -91,9 +94,22 @@ public class ContactHelper extends HelperBase {
         contactCache = null;
     }
 
+    public void createNew(ContactData contact) {
+        fillContactForm(contact, false);
+        submitContactCreation();
+        contactCache = null;
+    }
+
     public void delete(ContactData contact) {
         selectContactById(contact.getId());
         deleteSelectedContact();
+        contactCache = null;
+    }
+
+    public void addToGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        addSelectedContact();
+
         contactCache = null;
     }
 
@@ -178,4 +194,5 @@ public class ContactHelper extends HelperBase {
                 .withEmail(email).withEmail2(email2).withEmail3(email3)
                 .withAddress(address);
     }
+
 }

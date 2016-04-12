@@ -2,8 +2,7 @@ package addressbook.tests;
 
 import addressbook.model.ContactData;
 import addressbook.model.Contacts;
-import org.hamcrest.CoreMatchers;
-import org.hamcrest.MatcherAssert;
+import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -16,27 +15,32 @@ import static org.hamcrest.MatcherAssert.assertThat;
  */
 
 
-public class ContactDeletion extends TestBase {
+public class AddContactToGroupTest extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
         if (app.db().contacts().size() == 0) {
             createContactIfNotExists(contactA);
         }
-
+        if (app.db().groups().size() == 0) {
+            app.goTo().groupPage();
+            createGroupIfNotExist(groupDummy);
+            app.goTo().homePage();
+        }
     }
 
     @Test
-    public void testContactDeletion() {
+    public void testContactAdditionToGroup() {
         Contacts before = app.db().contacts();
-        ContactData deleteContact = before.iterator().next();
+        ContactData contact = before.iterator().next();
 
-        app.contact().delete(deleteContact);
-        app.goTo().homePage();
+        app.contact().addToGroup(contact);
 
-        assertThat(app.contact().count(), equalTo(before.size()-1));
         Contacts after = app.db().contacts();
-        assertThat(after, equalTo(before.without(deleteContact)));
-        verifyContactListOnUI();
+
+//        assertThat(after, equalTo(before));
+        System.out.println(after);
+        System.out.println(before);
+
     }
 }

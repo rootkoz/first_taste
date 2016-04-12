@@ -60,7 +60,7 @@ public class TestBase {
         if (!app.contact().contactExists()) {
 //            app.contact().list().size() == 0) {  // doubtfully
             app.goTo().newContactPage();
-            app.contact().createContact(contactData);
+            app.contact().createNew(contactData);
             app.goTo().homePage();
         }
     }
