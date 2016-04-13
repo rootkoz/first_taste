@@ -14,7 +14,8 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 
 import java.io.File;
-import java.lang.reflect.*;
+import java.lang.reflect.Method;
+import java.sql.*;
 import java.util.Arrays;
 import java.util.stream.Collectors;
 
@@ -29,20 +30,15 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class TestBase {
-    Logger logger = LoggerFactory.getLogger(TestBase.class);
-
     protected static final AppManager app = new AppManager(System.getProperty("browser", BrowserType.CHROME));
-
     protected GroupData groupDummy = new GroupData().withName("Zorr0").withHeader("backspinS").withFooter("bod");
-
-
     protected ContactData contactA = new ContactData()
             .withName("Ivan").withLastName("Petrov")
             .withAddress("BayArea")
             .withEmail("IvanP@soviet.uk").withEmail2("ip@ip").withEmail3("ipetrov@com.co")
             .withHomePhone("02-02").withMobilePhone("+7 (911) 614-1222").withWorkPhone("15010-00")
             .withPhoto(new File("src/test/resources/33small.png"));
-
+    Logger logger = LoggerFactory.getLogger(TestBase.class);
 
     @BeforeSuite
     public void setUp() throws Exception {
@@ -85,7 +81,6 @@ public class TestBase {
     }
 
 
-
     public void verifyGroupListOnUI() {
         if (Boolean.getBoolean("verifyUI")) {
             Groups fromDB = app.db().groups();
@@ -109,4 +104,46 @@ public class TestBase {
 
     }
 
+
+    public int getGroupIdForContact(int contact_id) {
+        Connection conn = null;
+        int group_id = 0;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?" + "user=root&password=");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT id, group_id FROM `address_in_groups` where id = " + Integer.toString(contact_id));
+            rs.first();
+            group_id = rs.getInt("group_id");
+            rs.close();
+            st.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return group_id;
+    }
+
+    public String groupNameById(int group_id){
+        Connection conn = null;
+        String group_name="";
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?" + "user=root&password=");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT group_name FROM `group_list` where group_id = " + Integer.toString(group_id));
+            rs.first();
+            group_name = rs.getString("group_name");
+            rs.close();
+            st.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return group_name;
+    }
 }

@@ -36,12 +36,6 @@ public class AddContactToGroupTest extends TestBase {
 
         app.contact().addToGroup(contact);
 
-        Contacts after = app.db().contacts();
-
-//        assertThat(after, equalTo(before));
-//        System.out.println(after);
-        System.out.println(contact.getId());
-//       //div[4]/select/option[1]
-//        div.right select option
+        assertThat(contact.getAddedToGroup(), equalTo(groupNameById(getGroupIdForContact(contact.getId()))));
     }
 }

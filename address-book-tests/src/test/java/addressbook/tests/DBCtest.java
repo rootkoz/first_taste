@@ -10,7 +10,7 @@ import java.sql.*;
 @Test
 public class DBCtest {
 
-    @Test
+    @Test(enabled = false)
     public void testDBC(){
         Connection conn = null;
         try {

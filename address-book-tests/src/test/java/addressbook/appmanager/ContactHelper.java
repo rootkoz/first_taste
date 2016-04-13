@@ -71,6 +71,7 @@ public class ContactHelper extends HelperBase {
 
     private String addContactToFirstGroup() {
         String group = wd.findElement(By.xpath("//div[4]/select/option[1]")).getText();
+        
         click(By.name("add"));
         return group;
     }
