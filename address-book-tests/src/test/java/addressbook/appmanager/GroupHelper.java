@@ -5,6 +5,7 @@ import addressbook.model.Groups;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
@@ -98,5 +99,9 @@ public class GroupHelper extends HelperBase {
 
     public int count() {
         return wd.findElements(By.name("selected[]")).size();
+    }
+
+    public void selectGroup(String name) {
+        new Select(wd.findElement(By.cssSelector("#right select"))).selectByVisibleText(name);
     }
 }

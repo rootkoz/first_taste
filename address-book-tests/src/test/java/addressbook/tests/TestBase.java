@@ -52,7 +52,6 @@ public class TestBase {
 
 
     protected void createContactIfNotExists(ContactData contactData) {
-        Groups groups = app.db().groups();
         if (!app.contact().contactExists()) {
 //            app.contact().list().size() == 0) {  // doubtfully
             app.goTo().newContactPage();

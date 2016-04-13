@@ -84,6 +84,12 @@ public class ContactHelper extends HelperBase {
     }
 
 
+    public void removeFromGroup(ContactData contact) {
+        selectContactById(contact.getId());
+        click(By.name("remove"));
+    }
+
+
     public void editContact(int id) {
         click(By.cssSelector("[href='edit.php?id=" + id + "'"));
     }
