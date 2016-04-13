@@ -233,8 +233,9 @@ public class ContactData {
         return this;
     }
 
-    public void setAddedToGroup(String addedToGroup) {
+    public ContactData setAddedToGroup(String addedToGroup) {
         this.addedToGroup = addedToGroup;
+        return this;
     }
 
     @Override

@@ -6,7 +6,6 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 /***
@@ -36,6 +35,6 @@ public class AddContactToGroupTest extends TestBase {
 
         app.contact().addToGroup(contact);
 
-        assertThat(contact.getAddedToGroup(), equalTo(groupNameById(getGroupIdForContact(contact.getId()))));
+        Assert.assertTrue(isConnected(contact.getId(), groupIdByName(contact.getAddedToGroup())));
     }
 }

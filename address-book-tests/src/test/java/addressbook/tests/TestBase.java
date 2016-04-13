@@ -106,7 +106,7 @@ public class TestBase {
 
 
     public int getGroupIdForContact(int contact_id) {
-        Connection conn = null;
+        Connection conn;
         int group_id = 0;
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?" + "user=root&password=");
@@ -127,7 +127,7 @@ public class TestBase {
     }
 
     public String groupNameById(int group_id){
-        Connection conn = null;
+        Connection conn;
         String group_name="";
         try {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?" + "user=root&password=");
@@ -145,5 +145,50 @@ public class TestBase {
             System.out.println("VendorError: " + ex.getErrorCode());
         }
         return group_name;
+    }
+
+
+    public int groupIdByName(String group_name){
+        Connection conn;
+        int group_id=0;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?" + "user=root&password=");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT group_id FROM `group_list` where group_name = '" + group_name+"'");
+            rs.first();
+            group_id = rs.getInt("group_id");
+            rs.close();
+            st.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+        return group_id;
+    }
+
+    public Boolean isConnected(int contact_id, int group_id){
+        Connection conn;
+        try {
+            conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?" + "user=root&password=");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery("SELECT * FROM `address_in_groups` where group_id = " + group_id +" AND id = "+contact_id);
+            rs.first();
+
+            System.out.println(rs.getFetchSize());
+
+            rs.close();
+            st.close();
+            conn.close();
+
+        } catch (SQLException ex) {
+            System.out.println("SQLException: " + ex.getMessage());
+            System.out.println("SQLState: " + ex.getSQLState());
+            System.out.println("VendorError: " + ex.getErrorCode());
+        }
+
+        return true;
     }
 }
