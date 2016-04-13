@@ -175,20 +175,19 @@ public class TestBase {
             conn = DriverManager.getConnection("jdbc:mysql://localhost/addressbook?" + "user=root&password=");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery("SELECT * FROM `address_in_groups` where group_id = " + group_id +" AND id = "+contact_id);
-            rs.first();
 
-            System.out.println(rs.getFetchSize());
-
-            rs.close();
-            st.close();
-            conn.close();
-
+            if (rs.first()){
+                rs.close();
+                st.close();
+                conn.close();
+                return true;
+            }
         } catch (SQLException ex) {
             System.out.println("SQLException: " + ex.getMessage());
             System.out.println("SQLState: " + ex.getSQLState());
             System.out.println("VendorError: " + ex.getErrorCode());
         }
-
-        return true;
+    return false;
     }
+
 }
