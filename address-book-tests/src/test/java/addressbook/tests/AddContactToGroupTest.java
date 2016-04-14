@@ -16,13 +16,14 @@ public class AddContactToGroupTest extends TestBase {
 
     @BeforeMethod
     public void preConditions() {
-        if (app.db().contacts().size() == 0) {
-            createContactIfNotExists(contactA);
-        }
         if (app.db().groups().size() == 0) {
             app.goTo().groupPage();
             createGroupIfNotExist(groupDummy);
             app.goTo().homePage();
+        }
+
+        if (app.db().contacts().size() == 0) {
+            createContactIfNotExists(contactA);
         }
     }
 
