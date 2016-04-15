@@ -23,7 +23,6 @@ public class ContactDeletion extends TestBase {
         if (app.db().contacts().size() == 0) {
             createContactIfNotExists(contactA);
         }
-
     }
 
     @Test

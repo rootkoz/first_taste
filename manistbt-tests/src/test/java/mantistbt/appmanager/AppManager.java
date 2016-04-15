@@ -45,10 +45,7 @@ public class AppManager {
         wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 
         wd.get(properties.getProperty("web.baseUrl"));
-        wd.findElement(By.id("LoginForm")).click();
-
-
-
+//        wd.findElement(By.id("LoginForm")).click();
     }
 
     public void stop() {
@@ -56,4 +53,10 @@ public class AppManager {
     }
 
 
+    public HTTPSession newSession(){
+        return new HTTPSession(this);
+    }
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
 }
