@@ -22,7 +22,8 @@ public class AppManager {
     private final Properties properties;
     private WebDriver wd;
     private String browser;
-    private RegistrationHelper registratioHelper;
+    private RegistrationHelper registrationHelper;
+    private FtpHelper ftp;
 
 
     public AppManager(String browser) {
@@ -51,10 +52,17 @@ public class AppManager {
     }
 
     public RegistrationHelper registration() {
-        if (registratioHelper == null) {
-            registratioHelper = new RegistrationHelper(this);
+        if (registrationHelper == null) {
+            registrationHelper = new RegistrationHelper(this);
         }
-        return registratioHelper;
+        return registrationHelper;
+    }
+
+    public FtpHelper ftp() {
+        if (ftp == null) {
+            ftp = new FtpHelper(this);
+        }
+        return ftp;
     }
 
     public WebDriver getDriver() {

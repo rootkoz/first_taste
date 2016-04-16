@@ -15,8 +15,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by >(((*> on 4/15/2016.
+/*** by rootkoz
+ *     >(((*>
  */
 
 public class HTTPSession {
