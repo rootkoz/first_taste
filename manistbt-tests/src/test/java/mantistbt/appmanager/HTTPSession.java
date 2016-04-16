@@ -29,7 +29,7 @@ public class HTTPSession {
     }
 
     public boolean login(String username, String password) throws IOException {
-        HttpPost post = new HttpPost(app.getProperty("web.baseurl") + "/login.php");
+        HttpPost post = new HttpPost(app.getProperty("web.baseUrl") + "/login.php");
 
         List<NameValuePair> params = new ArrayList<>();
         params.add(new BasicNameValuePair("username", username));
@@ -51,7 +51,7 @@ public class HTTPSession {
     }
 
     public boolean isLogeedAs(String username) throws IOException {
-        HttpGet get = new HttpGet(app.getProperty("web.baseurl")+"index.php");
+        HttpGet get = new HttpGet(app.getProperty("web.baseUrl")+"/index.php");
         CloseableHttpResponse response= httpClient.execute(get);
         String body = getTextFrom(response);
         return body.contains(String.format("<span class=\"italic\">%s</span>", username));

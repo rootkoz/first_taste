@@ -10,6 +10,7 @@ import static org.testng.AssertJUnit.assertTrue;
 /**
  * Created by >(((*> on 4/15/2016.
  */
+
 public class LoginTest extends TestBase {
     @Test
     public void testLogin() throws IOException {
