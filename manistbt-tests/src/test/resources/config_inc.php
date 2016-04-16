@@ -4,4 +4,6 @@ $g_db_type = 'mysql';
 $g_database_name = 'bugtracker';
 $g_username = 'root';
 $g_db_password = '';
-$g_signup_use_capthca = OFF;
+$g_signup_use_captcha = OFF;
+$g_phpmailer_method = PHPMAILER_METHOD_SMTP;
+$g_smtp_host = 'localhost';
