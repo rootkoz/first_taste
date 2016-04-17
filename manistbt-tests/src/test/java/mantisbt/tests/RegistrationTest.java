@@ -28,7 +28,7 @@ public class RegistrationTest extends TestBase {
     @Test
     public void testRegistration() throws IOException, MessagingException {
         long now =System.currentTimeMillis();
-        String email = "asd@asd" + now;
+        String email = "asd@" + now;
         String user = "user" + now;
         String password = "password";
 
@@ -39,9 +39,8 @@ public class RegistrationTest extends TestBase {
         String confirmationLink = findConfirmationLink(mailMessages, email);
 
         app.registration().finish(confirmationLink, password);
+
         assertTrue(app.newSession().login(user,password));
-
-
     }
 
     private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
