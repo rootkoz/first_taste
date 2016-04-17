@@ -10,7 +10,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.concurrent.TimeUnit;
 
 /***
  * by rootkoz
@@ -22,7 +21,7 @@ public class AppManager {
     private final Properties properties;
     private WebDriver wd;
     private String browser;
-    private RegistrationHelper registrationHelper;
+    private UsersHelper registrationHelper;
     private FtpHelper ftp;
     private MailHelper mailHelper;
     private JamesHelper jamesHelper;
@@ -53,9 +52,9 @@ public class AppManager {
         return properties.getProperty(key);
     }
 
-    public RegistrationHelper registration() {
+    public UsersHelper userOperations() {
         if (registrationHelper == null) {
-            registrationHelper = new RegistrationHelper(this);
+            registrationHelper = new UsersHelper(this);
         }
         return registrationHelper;
     }

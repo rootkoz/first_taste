@@ -32,13 +32,13 @@ public class RegistrationTest extends TestBase {
         String user = "user" + now;
         String password = "password";
 
-        app.registration().start(user, email);
+        app.userOperations().startRegistration(user, email);
 
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
 
         String confirmationLink = findConfirmationLink(mailMessages, email);
 
-        app.registration().finish(confirmationLink, password);
+        app.userOperations().finishUpdate(confirmationLink, password);
 
         assertTrue(app.newSession().login(user,password));
     }
