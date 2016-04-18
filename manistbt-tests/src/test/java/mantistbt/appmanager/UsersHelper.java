@@ -8,7 +8,9 @@ import org.openqa.selenium.By;
  */
 
 
-public class UsersHelper extends HelperBase{
+public class UsersHelper extends HelperBase {
+
+    private String username;
 
     public UsersHelper(AppManager app) {
         super(app);
@@ -16,8 +18,8 @@ public class UsersHelper extends HelperBase{
 
     public void startRegistration(String user, String email) {
         wd.get(app.getProperty("web.baseUrl") + "/signup_page.php");
-        type(By.name("username"),user);
-        type(By.name("email"),email);
+        type(By.name("username"), user);
+        type(By.name("email"), email);
         click(By.cssSelector("input[value='Signup']"));
     }
 
@@ -31,27 +33,38 @@ public class UsersHelper extends HelperBase{
 
     public void adminLogin(String user, String password) {
         wd.get(app.getProperty("web.baseUrl") + "/login_page.php");
-        type(By.name("username"),user);
-        type(By.name("password"),password);
+        type(By.name("username"), user);
+        type(By.name("password"), password);
         click(By.cssSelector("input[value='Login']"));
     }
 
-    public void manageUsers(){
+    public void manageUsers() {
         click(By.xpath("//span[1]/a"));
     }
 
-    public void selectSecondUser() {
-        click(By.xpath("//tr[4]/td[1]/a")); // first user after admin
+    public void selectUser() {
+        int iter = 3; // - first needed <tr>
+        iter = findNonRoleUser(iter, "administrator"); // first non admin user
+        click(By.xpath("//tr[" + iter + "]/td[1]/a"));
+        this.username = wd.findElement(By.xpath("//tr[2]/td[2]/input")).getAttribute("value");
     }
 
-    public  void submitResetPassword(){
+    private int findNonRoleUser(int iter, String role) {
+        while (wd.findElement(By.xpath("//tr[" + iter + "]/td[4]")).getText().equals(role)) {
+            iter += 1;
+        }
+        return iter;
+    }
+
+    public void submitResetPassword() {
         click(By.cssSelector("input[value='Reset Password']"));
     }
 
-    public void resetUserPassword() {
+    public String resetUserPassword() {
         manageUsers();
-        selectSecondUser();
+        selectUser();
         submitResetPassword();
+        return username;
     }
 
 

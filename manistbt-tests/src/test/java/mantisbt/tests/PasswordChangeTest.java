@@ -27,26 +27,17 @@ public class PasswordChangeTest extends TestBase {
 
     @Test
     public void testPasswordChange() throws IOException, MessagingException {
-        String user = "asd";
         String newPassword = "newPass";
-
         app.userOperations().adminLogin("administrator", "root");
-
-        //add name getting
-        app.userOperations().resetUserPassword();
-
+        String user = app.userOperations().resetUserPassword();
         List<MailMessage> mailMessages = app.mail().waitForMail(1, 10000);
-
         String confirmationLink = findResetLink(mailMessages);
-
         app.userOperations().finishUpdate(confirmationLink, newPassword);
-
         assertTrue(app.newSession().login(user, newPassword));
-
     }
 
     private String findResetLink(List<MailMessage> mailMessages) {
-        MailMessage mailMessage = mailMessages.get(0);// only one mail to user
+        MailMessage mailMessage = mailMessages.get(0);// only one mail ~ to user
         VerbalExpression re = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return re.getText(mailMessage.text);
     }

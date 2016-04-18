@@ -24,40 +24,42 @@ public class HelperBase {
     }
 
     protected void type(By locator, String text) {
-        if (text != null){
+        if (text != null) {
             String existingText = wd.findElement(locator).getAttribute("value");
-            if (! text.equals(existingText)){
+            if (!text.equals(existingText)) {
                 click(locator);
                 wd.findElement(locator).clear();
                 wd.findElement(locator).sendKeys(text);
             }
         }
     }
+
     protected void click(By locator) {
         wd.findElement(locator).click();
     }
 
     protected void attach(By locator, File file) {
-        if (file != null){
+        if (file != null) {
             String existingText = wd.findElement(locator).getAttribute("value");
-            if (! file.equals(existingText)){
+            if (!file.equals(existingText)) {
                 wd.findElement(locator).sendKeys(file.getAbsolutePath());
             }
         }
     }
 
-    protected void accept(){
+    protected void accept() {
         wd.switchTo().alert().accept();
     }
 
     protected boolean isElementPresent(By locator) {
-        try{
+        try {
             wd.findElement(locator);
             return true;
-        } catch (NoSuchElementException ex){
+        } catch (NoSuchElementException ex) {
             return false;
         }
     }
+
     public boolean isAlertPresent() {
         try {
             wd.switchTo().alert();
