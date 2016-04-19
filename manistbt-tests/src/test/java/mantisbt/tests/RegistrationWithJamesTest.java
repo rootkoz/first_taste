@@ -24,7 +24,7 @@ public class RegistrationWithJamesTest extends TestBase {
     @Test
     public void testRegistration() throws IOException, MessagingException {
         long now =System.currentTimeMillis();
-        String email = "james@" + now;
+        String email = "james" + now +"@localhost";
         String user = "james" + now;
         String password = "password";
 
