@@ -1,10 +1,15 @@
 package mantistbt.appmanager;
 
+import model.MailMessage;
 import org.apache.commons.net.telnet.TelnetClient;
 
 import javax.mail.*;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /***
  * by rootkoz
@@ -40,7 +45,7 @@ public class JamesHelper {
     public void createUser(String name, String password) {
         initTelnetSession();
         write("adduser " + name + " password");
-        String result = readUntil("User " + name + " added");
+        readUntil("User " + name + " added");
         closeTelnetSession();
     }
 
@@ -52,7 +57,9 @@ public class JamesHelper {
     }
 
     private void initTelnetSession() {
+
         mailServer = app.getProperty("mailserver.host");
+
         int port = Integer.parseInt(app.getProperty("mailserver.port"));
         String login = app.getProperty("mailserver.adminlogin");
         String password = app.getProperty("mailserver.adminpassword");
@@ -66,13 +73,10 @@ public class JamesHelper {
         }
 
         readUntil("Login id:");
-        write("");
-        readUntil("Password");
-        write("");
-        // ^^ repeat if TT
-
-        //welcome read
-        readUntil("Welcome " + login + ".HELP for a list of commands");
+        write(login);
+        readUntil("Password:");
+        write(password);
+        readUntil("Welcome " + login + ". HELP for a list of commands");
     }
 
     private String readUntil(String pattern) {
@@ -99,8 +103,8 @@ public class JamesHelper {
 
     private void write(String value) {
         try {
-            System.out.println(value);
-            System.out.flush();
+            out.println(value);
+            out.flush();
             System.out.println(value);
         } catch (Exception e) {
             e.printStackTrace();
@@ -111,17 +115,66 @@ public class JamesHelper {
         write("quit");
     }
 
-//    private void drainMail(String username, String password) throws MessagingException {
-//        Folder inbox = openInbox(username, password);
-//        for (Message message : inbox.getMessages()){
-//            message.setFlag(Flags.Flag.DELETED, true);
-//        }
-//        closeFolder(inbox);
-//    }
-//
-//    private void closeFolder(Folder folder) throws MessagingException {
-//        folder.close(true);
-//        store.close();
-//    }
+    private void drainMail(String username, String password) throws MessagingException {
+        Folder inbox = openInbox(username, password);
+        for (Message message : inbox.getMessages()) {
+            message.setFlag(Flags.Flag.DELETED, true);
+        }
+        closeFolder(inbox);
+    }
+
+    public List<MailMessage> waitForMail(String user, String password, long timeout) throws MessagingException, IOException {
+        long start = System.currentTimeMillis();
+
+        while (System.currentTimeMillis() < start + timeout) {
+            List<MailMessage> allMail = getAllMail(user, password);
+            if (allMail.size() > 0) {
+                return allMail;
+            }
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        throw new Error(" Email is absent");
+    }
+
+
+    private Folder openInbox(String user, String password) throws MessagingException {
+        store = mailSession.getStore("pop3");
+        store.connect(mailServer, user, password);
+        Folder folder = store.getDefaultFolder().getFolder("INBOX");
+        folder.open(Folder.READ_WRITE);
+        return folder;
+    }
+
+    private void closeFolder(Folder folder) throws MessagingException {
+        folder.close(true);
+        store.close();
+    }
+
+    public List<MailMessage> getAllMail(String user, String password) throws MessagingException {
+        Folder inbox = openInbox(user, password);
+        inbox.getMessages();
+
+        List<MailMessage> messages = Arrays.asList(inbox.getMessages()).stream().map((m) -> toModelMail(m)).collect(Collectors.toList());
+
+        closeFolder(inbox);
+        return messages;
+    }
+
+    public static MailMessage toModelMail(Message m) {
+        try {
+            return new MailMessage(m.getAllRecipients()[0].toString(), (String) m.getContent());
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
 }

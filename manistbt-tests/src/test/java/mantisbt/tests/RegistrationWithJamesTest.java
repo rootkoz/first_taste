@@ -18,29 +18,23 @@ import static org.testng.Assert.assertTrue;
  */
 
 
-public class RegistrationTest extends TestBase {
-
-    @BeforeMethod
-    public void startMailServer(){
-        app.mail().start();
-    }
+public class RegistrationWithJamesTest extends TestBase {
 
 
     @Test
     public void testRegistration() throws IOException, MessagingException {
         long now =System.currentTimeMillis();
-        String email = "asd@" + now;
-        String user = "user" + now;
+        String email = "james@" + now;
+        String user = "james" + now;
         String password = "password";
 
+        app.james().createUser(user, password);
         app.userOperations().startRegistration(user, email);
 
-        List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+        List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
 
         String confirmationLink = findConfirmationLink(mailMessages, email);
-
         app.userOperations().finishUpdate(confirmationLink, password);
-
         assertTrue(app.newSession().login(user,password));
     }
 
@@ -48,10 +42,5 @@ public class RegistrationTest extends TestBase {
         MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
         VerbalExpression re = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
         return re.getText(mailMessage.text);
-     }
-
-    @AfterMethod(alwaysRun = true)
-    public void stopMailServer(){
-        app.mail().stop();
     }
 }
