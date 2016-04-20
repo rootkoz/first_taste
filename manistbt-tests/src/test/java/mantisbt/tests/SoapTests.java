@@ -5,8 +5,6 @@ import model.MantisProject;
 import org.testng.annotations.Test;
 
 import javax.xml.rpc.ServiceException;
-import java.io.File;
-import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Set;
@@ -15,7 +13,7 @@ import static org.testng.Assert.assertEquals;
 
 public class SoapTests extends TestBase {
 
-    @Test
+    @Test(enabled = false)
     public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
         Set<MantisProject> projects = app.soap().getProjects();
         System.out.println(projects.size());
@@ -25,8 +23,9 @@ public class SoapTests extends TestBase {
     }
 
     @Test
-    public void testCreateIssue() throws RemoteException, ServiceException, MalformedURLException {
 
+    public void testCreateIssue() throws RemoteException, ServiceException, MalformedURLException {
+        skipIfNotFixed(3);
 
         Set<MantisProject> projects = app.soap().getProjects();
         Issue issue = new Issue()
@@ -36,6 +35,7 @@ public class SoapTests extends TestBase {
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSum(), created.getSum());
     }
+
 }
 
 

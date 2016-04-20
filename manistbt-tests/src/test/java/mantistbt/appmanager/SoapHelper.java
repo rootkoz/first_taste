@@ -18,6 +18,7 @@ public class SoapHelper {
 
     private AppManager app;
 
+
     public SoapHelper(AppManager app) {
         this.app = app;
     }
@@ -31,8 +32,20 @@ public class SoapHelper {
                 .collect(Collectors.toSet());
 
     }
+//
+//    public boolean isIssueOpen(int index) throws MalformedURLException, ServiceException, RemoteException {
+//        String adminUser = app.getProperty("webAdminLogin");
+//        String password = app.getProperty("webAdminPass");
+//        MantisConnectPortType mc = getMantisConnection();
+//
+//        String name = mc.mc_issue_get(adminUser, password, BigInteger.valueOf(index)).getStatus().getName();
+//        if(name.equals("closed")){
+//            return true;
+//        }
+//        return false;
+//    }
 
-    private MantisConnectPortType getMantisConnection() throws ServiceException, MalformedURLException {
+    public MantisConnectPortType getMantisConnection() throws ServiceException, MalformedURLException {
         return new MantisConnectLocator()
                 .getMantisConnectPort(new URL(app.getProperty("mantisConnection")));
     }
@@ -40,7 +53,6 @@ public class SoapHelper {
     public Issue addIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
         String adminUser = app.getProperty("webAdminLogin");
         String password = app.getProperty("webAdminPass");
-
         MantisConnectPortType mc = getMantisConnection();
         IssueData issueData = new IssueData();
         issueData.setSummary(issue.getSum());
