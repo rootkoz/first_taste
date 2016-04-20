@@ -34,10 +34,13 @@ public class SoapHelper {
 
     private MantisConnectPortType getMantisConnection() throws ServiceException, MalformedURLException {
         return new MantisConnectLocator()
-                    .getMantisConnectPort(new URL("http://localhost:808/mantisbt-1.2.19/api/soap/mantisconnect.php"));
+                .getMantisConnectPort(new URL(app.getProperty("mantisConnection")));
     }
 
     public Issue addIssue(Issue issue) throws MalformedURLException, ServiceException, RemoteException {
+        String adminUser = app.getProperty("webAdminLogin");
+        String password = app.getProperty("webAdminPass");
+
         MantisConnectPortType mc = getMantisConnection();
         IssueData issueData = new IssueData();
         issueData.setSummary(issue.getSum());
@@ -45,14 +48,14 @@ public class SoapHelper {
 
         issueData.setProject(new ObjectRef(BigInteger.valueOf(issue.getProject().getId()), issue.getProject().getName()));
 
-        String[] categories = mc.mc_project_get_categories("administrator", "root", BigInteger.valueOf(issue.getProject().getId()));
+        String[] categories = mc.mc_project_get_categories(adminUser, password, BigInteger.valueOf(issue.getProject().getId()));
         issueData.setCategory(categories[0]);
-        BigInteger issueId = mc.mc_issue_add("administrator", "root", issueData);
-        IssueData createdIssueData = mc.mc_issue_get("administrator", "root", issueId);
+        BigInteger issueId = mc.mc_issue_add(adminUser, password, issueData);
+        IssueData createdIssueData = mc.mc_issue_get(adminUser, password, issueId);
         return new Issue().withId(createdIssueData.getId().intValue())
                 .withSum(createdIssueData.getSummary()).withDescription(createdIssueData.getDescription())
                 .withProject(new MantisProject().withId(createdIssueData.getProject().getId().intValue())
-                .withName(createdIssueData.getProject().getName()));
+                        .withName(createdIssueData.getProject().getName()));
 
 
     }

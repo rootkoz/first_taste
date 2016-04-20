@@ -5,6 +5,8 @@ import model.MantisProject;
 import org.testng.annotations.Test;
 
 import javax.xml.rpc.ServiceException;
+import java.io.File;
+import java.io.FileReader;
 import java.net.MalformedURLException;
 import java.rmi.RemoteException;
 import java.util.Set;
@@ -24,6 +26,8 @@ public class SoapTests extends TestBase {
 
     @Test
     public void testCreateIssue() throws RemoteException, ServiceException, MalformedURLException {
+
+
         Set<MantisProject> projects = app.soap().getProjects();
         Issue issue = new Issue()
                 .withSum("Test sum")

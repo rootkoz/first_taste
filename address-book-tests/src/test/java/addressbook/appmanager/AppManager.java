@@ -58,8 +58,6 @@ public class AppManager {
         sessionHelper = new SessionHelper(wd);
 
         sessionHelper.login(properties.getProperty("webAdminPass"), properties.getProperty("webAdminLogin"));
-
-
     }
 
     public void stop() {
