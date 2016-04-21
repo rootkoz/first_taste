@@ -37,23 +37,16 @@ public class TestBase {
     }
 
     public void skipIfNotFixed(int issueId) throws RemoteException, ServiceException, MalformedURLException {
-        if ( isIssueOpen(issueId)) {
-            throw new SkipException("Ignored because of issue " + issueId);
+        if (isIssueOpen(issueId)) {
+            System.out.println("Ignored because of issue " + issueId + " not Fixed");
+            throw new SkipException("Ignored because of issue " + issueId); // message not appeared here
         }
     }
 
     public boolean isIssueOpen(int index) throws MalformedURLException, ServiceException, RemoteException {
-
         MantisConnectPortType mc = app.soap().getMantisConnection();
-
-        String adminPass = app.getProperty("webAdminPass");
-        String adminLogin = app.getProperty("webAdminLogin");
-
-//        String name = mc.mc_issue_get(adminLogin, adminPass, BigInteger.valueOf(index)).getStatus().getName();
-        String resolution = mc.mc_issue_get(adminLogin, adminPass, BigInteger.valueOf(index)).getResolution().getName();
-
-        if(resolution.equals("fixed")) return false;
-        return true;
+        String resolution = mc.mc_issue_get(app.getProperty("webAdminLogin"), app.getProperty("webAdminPass"), BigInteger.valueOf(index))
+                .getResolution().getName();
+        return !resolution.equals("fixed");
     }
-
 }

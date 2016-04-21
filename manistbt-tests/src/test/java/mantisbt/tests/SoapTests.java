@@ -13,8 +13,9 @@ import static org.testng.Assert.assertEquals;
 
 public class SoapTests extends TestBase {
 
-    @Test(enabled = false)
+    @Test
     public void testGetProjects() throws MalformedURLException, ServiceException, RemoteException {
+        skipIfNotFixed(1);
         Set<MantisProject> projects = app.soap().getProjects();
         System.out.println(projects.size());
         for (MantisProject project : projects) {
@@ -23,9 +24,8 @@ public class SoapTests extends TestBase {
     }
 
     @Test
-
     public void testCreateIssue() throws RemoteException, ServiceException, MalformedURLException {
-        skipIfNotFixed(3);
+        skipIfNotFixed(2);
 
         Set<MantisProject> projects = app.soap().getProjects();
         Issue issue = new Issue()
@@ -35,7 +35,6 @@ public class SoapTests extends TestBase {
         Issue created = app.soap().addIssue(issue);
         assertEquals(issue.getSum(), created.getSum());
     }
-
 }
 
 
