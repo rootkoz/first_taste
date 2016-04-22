@@ -4,7 +4,16 @@ public class Issue {
     private int id;
     private String subject;
     private String description;
+    private String issuesStatus;
 
+    public String getIssuesStatus() {
+        return issuesStatus;
+    }
+
+    public Issue withIssuesStatus(String issuesStatus) {
+        this.issuesStatus = issuesStatus;
+        return this;
+    }
 
     public int getId() {
         return id;
@@ -42,7 +51,8 @@ public class Issue {
 
         if (id != issue.id) return false;
         if (subject != null ? !subject.equals(issue.subject) : issue.subject != null) return false;
-        return description != null ? description.equals(issue.description) : issue.description == null;
+        if (description != null ? !description.equals(issue.description) : issue.description != null) return false;
+        return issuesStatus != null ? issuesStatus.equals(issue.issuesStatus) : issue.issuesStatus == null;
 
     }
 
@@ -51,6 +61,7 @@ public class Issue {
         int result = id;
         result = 31 * result + (subject != null ? subject.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
+        result = 31 * result + (issuesStatus != null ? issuesStatus.hashCode() : 0);
         return result;
     }
 }
