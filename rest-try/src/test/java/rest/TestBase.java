@@ -31,21 +31,16 @@ public class TestBase {
 
     public void skipIfNotFixed(int issueId) throws IOException {
         if (isIssueOpen(issueId)) {
-            throw new SkipException("Ignored because of issue " + issueId);
+            System.out.println("Ignored because of issue " + issueId);
+            throw new SkipException("This message consumed somehow..");
         }
     }
 
-
     public String getIssueStateById(int id) throws IOException {
         String json = RestAssured.get("http://demo.bugify.com/api/issues/" + id + ".json").asString();
-        JsonElement parsed = new JsonParser().parse(json);
-        JsonElement issues = parsed.getAsJsonObject().get("issues");
-
+        JsonElement issues = new JsonParser().parse(json).getAsJsonObject().get("issues");
         JsonElement issue = issues.getAsJsonArray().get(0);
-        JsonElement issue_state= issue.getAsJsonObject().get("state_name");
-        String s = issue_state.getAsString();
-//        String ss = issue_state.toString(); wrab JsonElement in ""
-        return s;
+        return issue.getAsJsonObject().get("state_name").getAsString();
     }
 
     public int createIssue(Issue newIssue) throws IOException {
