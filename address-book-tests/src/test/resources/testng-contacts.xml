@@ -6,11 +6,11 @@
             <class name="addressbook.tests.ContactCreation" />
             <class name="addressbook.tests.ContactDeletion" />
             <class name="addressbook.tests.ContactEdition" />
-            <class name="addressbook.tests.RemoveContactFromGroupTest" />
             <class name="addressbook.tests.AddContactToGroupTest" />
             <class name="addressbook.tests.ContactEmailTest" />
             <class name="addressbook.tests.ContactPhoneTest" />
             <class name="addressbook.tests.ContactAddressTest" />
+            <class name="addressbook.tests.RemoveContactFromGroupTest" />
         </classes>
     </test>
 </suite>
