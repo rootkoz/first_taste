@@ -30,7 +30,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 
 public class TestBase {
-    protected static final AppManager app = new AppManager(System.getProperty("browser", BrowserType.CHROME));
+    protected static final AppManager app = new AppManager(System.getProperty("browser", BrowserType.FIREFOX));
     protected GroupData groupDummy = new GroupData().withName("Zorr0").withHeader("backspinS").withFooter("bod");
     protected ContactData contactA = new ContactData()
             .withName("Ivan").withLastName("Petrov")
