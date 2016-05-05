@@ -54,7 +54,7 @@ public class AppManager {
         } else {
             DesiredCapabilities capabilities = new DesiredCapabilities();
             capabilities.setBrowserName(browser);
-            capabilities.setPlatform(Platform.fromString(properties.getProperty("platform", "win7")));
+            capabilities.setPlatform(Platform.fromString(properties.getProperty("platform", "linux")));
             wd = new RemoteWebDriver(new URL(properties.getProperty("selenium.server")), capabilities);
         }
 
