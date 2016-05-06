@@ -11,3 +11,4 @@ gradle-app.setting
 .gradletasknamecache
 .idea/workspace.xml
 *.log
+sandbox/src/test/java/tf.java
