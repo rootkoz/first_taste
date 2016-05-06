@@ -1,0 +1,1 @@
+C:\tools\allure-cli\bin\allure.bat generate build\allure-results

@@ -1,0 +1,1 @@
+C:\tools\allure-cli\bin\allure.bat report open
